@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>呼嚕嚕手遊代儲</title>
 
@@ -25,7 +26,7 @@ font-size:28px;
 
 .subtitle{
 color:#94a3b8;
-margin-top:5px;
+margin-top:6px;
 }
 
 input{
@@ -108,7 +109,9 @@ text-decoration:none;
 }
 
 </style>
+
 </head>
+
 
 <body>
 
@@ -121,37 +124,41 @@ text-decoration:none;
 
 </header>
 
+
 <div class="container">
 
 <div class="grid" id="games">
 
 <div class="card" data-key="原神 genshin yuanshen">
 
-<img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg">
+<img src="https://cdn.akamai.steamstatic.com/steam/apps/990080/header.jpg">
 
 <div class="card-title">原神</div>
 
 </div>
 
+
 <div class="card" data-key="崩壞 崩鐵 星穹鐵道 honkai starrail">
 
-<img src="https://upload.wikimedia.org/wikipedia/en/b/b5/Honkai_Star_Rail.png">
+<img src="https://cdn.akamai.steamstatic.com/steam/apps/1817070/header.jpg">
 
 <div class="card-title">崩壞星穹鐵道</div>
 
 </div>
 
-<div class="card" data-key="apex apexlegends">
 
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg">
+<div class="card" data-key="apex apexlegends a">
+
+<img src="https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg">
 
 <div class="card-title">APEX</div>
 
 </div>
 
-<div class="card" data-key="lol leagueoflegends 英雄聯盟">
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg">
+<div class="card" data-key="lol leagueoflegends l 英雄聯盟">
+
+<img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg">
 
 <div class="card-title">LOL</div>
 
@@ -160,7 +167,7 @@ text-decoration:none;
 </div>
 
 
-<div id="genshin" class="prices">
+<div class="prices" id="genshin">
 
 <h3>原神</h3>
 
@@ -170,7 +177,8 @@ text-decoration:none;
 
 </div>
 
-<div id="starrail" class="prices">
+
+<div class="prices" id="starrail">
 
 <h3>崩壞星穹鐵道</h3>
 
@@ -179,7 +187,8 @@ text-decoration:none;
 
 </div>
 
-<div id="apex" class="prices">
+
+<div class="prices" id="apex">
 
 <h3>APEX</h3>
 
@@ -188,7 +197,8 @@ text-decoration:none;
 
 </div>
 
-<div id="lol" class="prices">
+
+<div class="prices" id="lol">
 
 <h3>LOL</h3>
 
@@ -196,6 +206,7 @@ text-decoration:none;
 <div class="price"><span>610聯盟幣</span><span>$230</span></div>
 
 </div>
+
 
 <div class="notice">
 ✨價格每日浮動，依照官方當天報價為主✨
@@ -205,6 +216,7 @@ text-decoration:none;
 
 
 <a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
+
 
 
 <script>
@@ -225,9 +237,11 @@ prices[index].style.display="block"
 })
 
 
-document.getElementById("search").addEventListener("input",function(){
+const input=document.getElementById("search")
 
-let text=this.value.toLowerCase()
+input.addEventListener("input",function(){
+
+let text=input.value.toLowerCase()
 
 prices.forEach(p=>p.style.display="none")
 
@@ -235,7 +249,7 @@ cards.forEach(card=>{
 
 let keys=card.dataset.key.toLowerCase()
 
-if(keys.indexOf(text)>-1 || text===""){
+if(keys.includes(text) || text===""){
 card.style.display="block"
 }else{
 card.style.display="none"
