@@ -7,32 +7,32 @@
 <style>
 
 body{
-background:#0f0f0f;
-color:white;
+background:linear-gradient(135deg,#f5f7fa,#e4e8f0);
 font-family:Arial;
 margin:0;
 text-align:center;
+color:#222;
 }
 
 header{
-padding:30px 20px;
+padding:40px 20px;
 }
 
 h1{
 margin:0;
-font-size:28px;
+font-size:30px;
 }
 
 .subtitle{
-color:#aaa;
+color:#666;
 margin-top:6px;
 }
 
 input{
 width:85%;
-padding:12px;
+padding:14px;
 border-radius:10px;
-border:none;
+border:1px solid #ddd;
 margin-top:20px;
 font-size:16px;
 }
@@ -44,38 +44,40 @@ margin:auto;
 }
 
 .game{
-background:#1c1c1c;
-margin:15px 0;
-border-radius:12px;
+background:white;
+margin:18px 0;
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
 overflow:hidden;
 }
 
 .game-title{
-padding:15px;
+padding:18px;
 font-size:18px;
-background:#222;
+background:#f6f7fb;
 cursor:pointer;
 }
 
 .prices{
 display:none;
-padding:10px;
+padding:15px;
 }
 
 .price{
-background:#2a2a2a;
-margin:6px 0;
-padding:12px;
-border-radius:8px;
+background:#f2f3f7;
+margin:8px 0;
+padding:14px;
+border-radius:10px;
 cursor:pointer;
+transition:0.2s;
 }
 
 .price:hover{
-background:#3a3a3a;
+background:#e6e8f0;
 }
 
 .hot{
-color:#ffcc00;
+color:#ff7a00;
 font-size:14px;
 }
 
@@ -84,16 +86,17 @@ position:fixed;
 bottom:20px;
 right:20px;
 background:#06c755;
-padding:14px 20px;
+padding:14px 22px;
 border-radius:50px;
 color:white;
 text-decoration:none;
 font-size:16px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
 
 .notice{
-color:#aaa;
 margin-top:20px;
+color:#777;
 font-size:14px;
 }
 
@@ -105,7 +108,7 @@ font-size:14px;
 <header>
 
 <h1>🎮 呼嚕嚕手遊代儲</h1>
-<div class="subtitle">代儲價目查詢</div>
+<div class="subtitle">快速儲值 · 安全可靠</div>
 
 <input id="search" placeholder="搜尋遊戲">
 
@@ -120,12 +123,12 @@ font-size:14px;
 
 <div class="prices">
 
-<div class="price">原神 60晶石 $30</div>
-<div class="price">原神 300晶石 $140</div>
-<div class="price">原神 980晶石 $400</div>
-<div class="price">原神 1980晶石 $760</div>
-<div class="price">原神 3280晶石 $1350</div>
-<div class="price">原神 6480晶石 $2170</div>
+<div class="price" data-game="原神" data-item="60晶石" data-price="30">60晶石 $30</div>
+<div class="price" data-game="原神" data-item="300晶石" data-price="140">300晶石 $140</div>
+<div class="price" data-game="原神" data-item="980晶石" data-price="400">980晶石 $400</div>
+<div class="price" data-game="原神" data-item="1980晶石" data-price="760">1980晶石 $760</div>
+<div class="price" data-game="原神" data-item="3280晶石" data-price="1350">3280晶石 $1350</div>
+<div class="price" data-game="原神" data-item="6480晶石" data-price="2170">6480晶石 $2170</div>
 
 </div>
 
@@ -138,12 +141,12 @@ font-size:14px;
 
 <div class="prices">
 
-<div class="price">崩鐵 60星瓊 $30</div>
-<div class="price">崩鐵 300星瓊 $140</div>
-<div class="price">崩鐵 980星瓊 $400</div>
-<div class="price">崩鐵 1980星瓊 $760</div>
-<div class="price">崩鐵 3280星瓊 $1350</div>
-<div class="price">崩鐵 6480星瓊 $2170</div>
+<div class="price" data-game="崩鐵" data-item="60星瓊" data-price="30">60星瓊 $30</div>
+<div class="price" data-game="崩鐵" data-item="300星瓊" data-price="140">300星瓊 $140</div>
+<div class="price" data-game="崩鐵" data-item="980星瓊" data-price="400">980星瓊 $400</div>
+<div class="price" data-game="崩鐵" data-item="1980星瓊" data-price="760">1980星瓊 $760</div>
+<div class="price" data-game="崩鐵" data-item="3280星瓊" data-price="1350">3280星瓊 $1350</div>
+<div class="price" data-game="崩鐵" data-item="6480星瓊" data-price="2170">6480星瓊 $2170</div>
 
 </div>
 
@@ -156,9 +159,9 @@ font-size:14px;
 
 <div class="prices">
 
-<div class="price">APEX 1000金幣 $220</div>
-<div class="price">APEX 2150金幣 $420</div>
-<div class="price">APEX 4350金幣 $820</div>
+<div class="price" data-game="APEX" data-item="1000金幣" data-price="220">1000金幣 $220</div>
+<div class="price" data-game="APEX" data-item="2150金幣" data-price="420">2150金幣 $420</div>
+<div class="price" data-game="APEX" data-item="4350金幣" data-price="820">4350金幣 $820</div>
 
 </div>
 
@@ -171,9 +174,9 @@ font-size:14px;
 
 <div class="prices">
 
-<div class="price">LOL 375聯盟幣 $150</div>
-<div class="price">LOL 610聯盟幣 $230</div>
-<div class="price">LOL 1380聯盟幣 $500</div>
+<div class="price" data-game="LOL" data-item="375聯盟幣" data-price="150">375聯盟幣 $150</div>
+<div class="price" data-game="LOL" data-item="610聯盟幣" data-price="230">610聯盟幣 $230</div>
+<div class="price" data-game="LOL" data-item="1380聯盟幣" data-price="500">1380聯盟幣 $500</div>
 
 </div>
 
@@ -187,7 +190,7 @@ font-size:14px;
 </div>
 
 
-<a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
+<a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
 
 
 <script>
@@ -198,23 +201,14 @@ font-size:14px;
 let titles=document.querySelectorAll(".game-title")
 
 titles.forEach(title=>{
-
 title.onclick=function(){
 
 let prices=this.nextElementSibling
 
-if(prices.style.display=="block"){
-
-prices.style.display="none"
-
-}else{
-
-prices.style.display="block"
+prices.style.display =
+prices.style.display=="block" ? "none" : "block"
 
 }
-
-}
-
 })
 
 
@@ -233,15 +227,8 @@ for(let i=0;i<games.length;i++){
 
 let name=games[i].innerText.toLowerCase()
 
-if(name.includes(text)){
-
-games[i].style.display="block"
-
-}else{
-
-games[i].style.display="none"
-
-}
+games[i].style.display =
+name.includes(text) ? "block" : "none"
 
 }
 
@@ -249,7 +236,7 @@ games[i].style.display="none"
 
 
 
-// 點面額 → LINE
+// LINE下單
 
 let prices=document.querySelectorAll(".price")
 
@@ -257,15 +244,24 @@ prices.forEach(p=>{
 
 p.onclick=function(){
 
-let order=this.innerText
+let game=this.dataset.game
+let item=this.dataset.item
+let price=this.dataset.price
 
-let url="https://line.me/R/msg/text/?我要儲值 "+order
+let message=
+"我要儲值\n"+
+"遊戲："+game+"\n"+
+"面額："+item+"\n"+
+"價格："+price
+
+let url="https://line.me/R/msg/text/?"+encodeURIComponent(message)
 
 window.open(url)
 
 }
 
 })
+
 
 </script>
 
