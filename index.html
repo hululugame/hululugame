@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>遊戲價目查詢</title>
+
+<style>
+body{
+font-family: Arial;
+background:#111;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+input{
+width:80%;
+padding:12px;
+font-size:18px;
+border-radius:8px;
+border:none;
+margin-bottom:20px;
+}
+
+.game{
+background:#222;
+padding:15px;
+margin:10px;
+border-radius:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🎮 遊戲價目查詢</h1>
+
+<input type="text" id="search" placeholder="輸入遊戲名稱">
+
+<div id="games">
+
+<div class="game">原神 - 代打每日 $200</div>
+<div class="game">崩鐵 - 深淵代打 $300</div>
+<div class="game">APEX - 上分代打 $500</div>
+<div class="game">LOL - 排位代打 $400</div>
+<div class="game">CS2 - 上分服務 $350</div>
+
+</div>
+
+<script>
+let input=document.getElementById("search")
+let games=document.getElementsByClassName("game")
+
+input.onkeyup=function(){
+let text=input.value.toLowerCase()
+
+for(let i=0;i<games.length;i++){
+let name=games[i].innerText.toLowerCase()
+
+if(name.includes(text)){
+games[i].style.display="block"
+}else{
+games[i].style.display="none"
+}
+}
+}
+</script>
+
+</body>
+</html>
