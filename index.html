@@ -2,67 +2,150 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>遊戲價目查詢</title>
+<title>HULULU GAME 代儲</title>
 
 <style>
+
 body{
-font-family: Arial;
-background:#111;
+background:#0f0f0f;
 color:white;
+font-family:Arial;
 text-align:center;
-padding:30px;
+margin:0;
+}
+
+header{
+padding:30px 20px;
+}
+
+h1{
+margin:0;
+font-size:28px;
+}
+
+.subtitle{
+color:#aaa;
+margin-top:6px;
 }
 
 input{
-width:80%;
+width:85%;
 padding:12px;
-font-size:18px;
-border-radius:8px;
+border-radius:10px;
 border:none;
-margin-bottom:20px;
+margin-top:20px;
+font-size:16px;
+}
+
+.container{
+padding:20px;
 }
 
 .game{
-background:#222;
-padding:15px;
-margin:10px;
-border-radius:10px;
+background:#1c1c1c;
+padding:20px;
+margin:20px auto;
+border-radius:12px;
+max-width:420px;
 }
-</style>
 
+.game h2{
+margin-top:0;
+}
+
+.price{
+background:#2a2a2a;
+padding:12px;
+margin:8px 0;
+border-radius:8px;
+}
+
+.notice{
+color:#bbb;
+font-size:14px;
+margin-top:10px;
+}
+
+.line{
+display:inline-block;
+margin-top:30px;
+background:#06c755;
+color:white;
+padding:14px 25px;
+border-radius:10px;
+text-decoration:none;
+font-size:18px;
+}
+
+</style>
 </head>
 
 <body>
 
-<h1>🎮 遊戲價目查詢</h1>
+<header>
+<h1>🎮 HULULU GAME</h1>
+<div class="subtitle">代儲價目查詢</div>
 
-<input type="text" id="search" placeholder="輸入遊戲名稱">
+<input type="text" id="search" placeholder="搜尋遊戲">
+</header>
 
-<div id="games">
+<div class="container" id="games">
 
 <div class="game">
-原神<br>
-60結晶 $30<br>
-300結晶 $140<br>
-980結晶 $400<br>
-1980結晶 760<br>
-3280結晶 $1350<br>
-6480結晶 $2170<br>
-🌟價格每日浮動，依照官方當天報價為主🌟
+<h2>原神</h2>
+<div class="price">60晶石 $30</div>
+<div class="price">300晶石 $140</div>
+<div class="price">980晶石 $400</div>
+<div class="price">1980晶石 $760</div>
+<div class="price">3280晶石 $1350</div>
+<div class="price">6480晶石 $2170</div>
 </div>
 
+<div class="game">
+<h2>崩壞星穹鐵道</h2>
+<div class="price">60星瓊 $30</div>
+<div class="price">300星瓊 $140</div>
+<div class="price">980星瓊 $400</div>
+<div class="price">1980星瓊 $760</div>
+<div class="price">3280星瓊 $1350</div>
+<div class="price">6480星瓊 $2170</div>
+</div>
 
+<div class="game">
+<h2>APEX</h2>
+<div class="price">1000金幣 $220</div>
+<div class="price">2150金幣 $420</div>
+<div class="price">4350金幣 $820</div>
+</div>
+
+<div class="game">
+<h2>LOL</h2>
+<div class="price">375聯盟幣 $150</div>
+<div class="price">610聯盟幣 $230</div>
+<div class="price">1380聯盟幣 $500</div>
+</div>
+
+<div class="notice">
+✨價格每日浮動，依照官方當天報價為主✨
+</div>
+
+<a class="line" href="#">
+LINE客服下單
+</a>
 
 </div>
 
 <script>
+
 let input=document.getElementById("search")
 let games=document.getElementsByClassName("game")
 
 input.onkeyup=function(){
+
 let text=input.value.toLowerCase()
 
 for(let i=0;i<games.length;i++){
+
 let name=games[i].innerText.toLowerCase()
 
 if(name.includes(text)){
@@ -70,8 +153,11 @@ games[i].style.display="block"
 }else{
 games[i].style.display="none"
 }
+
 }
+
 }
+
 </script>
 
 </body>
