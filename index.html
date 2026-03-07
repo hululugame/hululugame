@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
 <title>呼嚕嚕手遊代儲</title>
 
 <style>
 
 body{
-background:linear-gradient(135deg,#f5f7fa,#e4e8f0);
+background:#1f2430;
 font-family:Arial;
 margin:0;
 text-align:center;
-color:#222;
+color:white;
 }
 
 header{
@@ -24,7 +26,7 @@ font-size:30px;
 }
 
 .subtitle{
-color:#666;
+color:#aaa;
 margin-top:6px;
 }
 
@@ -32,7 +34,7 @@ input{
 width:85%;
 padding:14px;
 border-radius:10px;
-border:1px solid #ddd;
+border:none;
 margin-top:20px;
 font-size:16px;
 }
@@ -47,15 +49,19 @@ margin:auto;
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:15px;
-margin-top:20px;
+margin-top:25px;
 }
 
 .card{
-background:white;
+background:#2a2f3d;
 border-radius:14px;
-box-shadow:0 6px 15px rgba(0,0,0,0.08);
-cursor:pointer;
 overflow:hidden;
+cursor:pointer;
+transition:0.2s;
+}
+
+.card:hover{
+transform:scale(1.03);
 }
 
 .card img{
@@ -69,17 +75,21 @@ padding:12px;
 font-weight:bold;
 }
 
+.hot{
+color:#ffb400;
+font-size:12px;
+}
+
 .prices{
 display:none;
-background:white;
+background:#2a2f3d;
 border-radius:14px;
-margin-top:15px;
-padding:15px;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
+margin-top:20px;
+padding:20px;
 }
 
 .price{
-background:#f2f3f7;
+background:#3a4050;
 padding:14px;
 margin:8px 0;
 border-radius:10px;
@@ -87,7 +97,7 @@ cursor:pointer;
 }
 
 .price:hover{
-background:#e6e8f0;
+background:#4a5165;
 }
 
 .line{
@@ -100,16 +110,17 @@ border-radius:50px;
 color:white;
 text-decoration:none;
 font-size:16px;
-box-shadow:0 4px 12px rgba(0,0,0,0.2);
+box-shadow:0 4px 12px rgba(0,0,0,0.4);
 }
 
 .notice{
 margin-top:20px;
-color:#777;
+color:#aaa;
 font-size:14px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -126,44 +137,34 @@ font-size:14px;
 
 <div class="container">
 
-<div class="grid" id="games">
+<div class="grid">
+
 
 <div class="card" onclick="showGame('genshin')">
-
 <img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg">
-
-<div class="card-title">原神</div>
-
+<div class="card-title">🔥 原神</div>
 </div>
 
 
 <div class="card" onclick="showGame('starrail')">
-
 <img src="https://upload.wikimedia.org/wikipedia/en/3/33/Honkai_Star_Rail_logo.png">
-
-<div class="card-title">崩壞星穹鐵道</div>
-
+<div class="card-title">🔥 崩壞星穹鐵道</div>
 </div>
 
 
 <div class="card" onclick="showGame('apex')">
-
 <img src="https://upload.wikimedia.org/wikipedia/en/d/db/Apex_legends_cover.jpg">
-
 <div class="card-title">APEX</div>
-
 </div>
 
 
 <div class="card" onclick="showGame('lol')">
-
-<img src="https://upload.wikimedia.org/wikipedia/en/7/77/League_of_Legends_logo.png">
-
+<img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg">
 <div class="card-title">LOL</div>
-
 </div>
 
 </div>
+
 
 
 <div id="genshin" class="prices">
@@ -180,6 +181,7 @@ font-size:14px;
 </div>
 
 
+
 <div id="starrail" class="prices">
 
 <h3>崩壞星穹鐵道</h3>
@@ -193,6 +195,7 @@ font-size:14px;
 </div>
 
 
+
 <div id="apex" class="prices">
 
 <h3>APEX</h3>
@@ -202,6 +205,7 @@ font-size:14px;
 <div class="price" data-game="APEX" data-item="4350金幣" data-price="820">4350金幣 $820</div>
 
 </div>
+
 
 
 <div id="lol" class="prices">
@@ -215,6 +219,7 @@ font-size:14px;
 </div>
 
 
+
 <div class="notice">
 ✨價格每日浮動，依照官方當天報價為主✨
 </div>
@@ -222,21 +227,21 @@ font-size:14px;
 </div>
 
 
-<a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
+<a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
+
 
 
 <script>
 
 function showGame(id){
 
-let sections=document.querySelectorAll(".prices")
+let all=document.querySelectorAll(".prices")
 
-sections.forEach(s=>s.style.display="none")
+all.forEach(a=>a.style.display="none")
 
 document.getElementById(id).style.display="block"
 
 }
-
 
 
 let prices=document.querySelectorAll(".price")
@@ -264,6 +269,7 @@ window.open(url)
 })
 
 </script>
+
 
 </body>
 </html>
