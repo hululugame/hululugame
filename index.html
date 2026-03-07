@@ -39,49 +39,44 @@ font-size:16px;
 
 .container{
 padding:20px;
+max-width:600px;
+margin:auto;
 }
 
 .game{
 background:#1c1c1c;
-margin:18px auto;
-border-radius:14px;
-max-width:420px;
+margin:15px 0;
+border-radius:12px;
 overflow:hidden;
-transition:0.3s;
-}
-
-.game:hover{
-transform:scale(1.02);
 }
 
 .game-title{
-padding:16px;
+padding:15px;
 font-size:18px;
-cursor:pointer;
 background:#222;
+cursor:pointer;
 }
 
 .prices{
 display:none;
-padding:12px;
+padding:10px;
 }
 
 .price{
 background:#2a2a2a;
-margin:8px 0;
+margin:6px 0;
 padding:12px;
 border-radius:8px;
 cursor:pointer;
 }
 
-.price:active{
-background:#444;
+.price:hover{
+background:#3a3a3a;
 }
 
-.notice{
-color:#bbb;
+.hot{
+color:#ffcc00;
 font-size:14px;
-margin-top:20px;
 }
 
 .line{
@@ -89,11 +84,17 @@ position:fixed;
 bottom:20px;
 right:20px;
 background:#06c755;
-padding:14px 22px;
+padding:14px 20px;
 border-radius:50px;
 color:white;
 text-decoration:none;
 font-size:16px;
+}
+
+.notice{
+color:#aaa;
+margin-top:20px;
+font-size:14px;
 }
 
 </style>
@@ -103,20 +104,19 @@ font-size:16px;
 
 <header>
 
-<h1>🌟呼嚕嚕手遊代儲🌟</h1>
+<h1>🎮 呼嚕嚕手遊代儲</h1>
 <div class="subtitle">代儲價目查詢</div>
 
 <input id="search" placeholder="搜尋遊戲">
 
 </header>
 
-
 <div class="container" id="games">
 
 
 <div class="game">
 
-<div class="game-title">原神</div>
+<div class="game-title">🔥 原神 <span class="hot">熱門</span></div>
 
 <div class="prices">
 
@@ -134,7 +134,7 @@ font-size:16px;
 
 <div class="game">
 
-<div class="game-title">崩壞星穹鐵道</div>
+<div class="game-title">🔥 崩壞星穹鐵道 <span class="hot">熱門</span></div>
 
 <div class="prices">
 
@@ -187,9 +187,7 @@ font-size:16px;
 </div>
 
 
-<a class="line" href="https://line.me/ti/p/pf0zYhi55P">
-LINE客服
-</a>
+<a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
 
 
 <script>
@@ -251,7 +249,7 @@ games[i].style.display="none"
 
 
 
-// 點價格
+// 點面額 → LINE
 
 let prices=document.querySelectorAll(".price")
 
@@ -259,14 +257,15 @@ prices.forEach(p=>{
 
 p.onclick=function(){
 
-navigator.clipboard.writeText(this.innerText)
+let order=this.innerText
 
-alert("已複製："+this.innerText)
+let url="https://line.me/R/msg/text/?我要儲值 "+order
+
+window.open(url)
 
 }
 
 })
-
 
 </script>
 
