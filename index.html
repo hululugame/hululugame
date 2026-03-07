@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HULULU GAME 代儲</title>
+<title>HULULU GAME</title>
 
 <style>
 
@@ -10,8 +10,8 @@ body{
 background:#0f0f0f;
 color:white;
 font-family:Arial;
-text-align:center;
 margin:0;
+text-align:center;
 }
 
 header{
@@ -43,38 +43,57 @@ padding:20px;
 
 .game{
 background:#1c1c1c;
-padding:20px;
-margin:20px auto;
-border-radius:12px;
+margin:18px auto;
+border-radius:14px;
 max-width:420px;
+overflow:hidden;
+transition:0.3s;
 }
 
-.game h2{
-margin-top:0;
+.game:hover{
+transform:scale(1.02);
+}
+
+.game-title{
+padding:16px;
+font-size:18px;
+cursor:pointer;
+background:#222;
+}
+
+.prices{
+display:none;
+padding:12px;
 }
 
 .price{
 background:#2a2a2a;
-padding:12px;
 margin:8px 0;
+padding:12px;
 border-radius:8px;
+cursor:pointer;
+}
+
+.price:active{
+background:#444;
 }
 
 .notice{
 color:#bbb;
 font-size:14px;
-margin-top:10px;
+margin-top:20px;
 }
 
 .line{
-display:inline-block;
-margin-top:30px;
+position:fixed;
+bottom:20px;
+right:20px;
 background:#06c755;
+padding:14px 22px;
+border-radius:50px;
 color:white;
-padding:14px 25px;
-border-radius:10px;
 text-decoration:none;
-font-size:18px;
+font-size:16px;
 }
 
 </style>
@@ -83,80 +102,171 @@ font-size:18px;
 <body>
 
 <header>
+
 <h1>🎮 HULULU GAME</h1>
 <div class="subtitle">代儲價目查詢</div>
 
-<input type="text" id="search" placeholder="搜尋遊戲">
+<input id="search" placeholder="搜尋遊戲">
+
 </header>
+
 
 <div class="container" id="games">
 
-<div class="game">
-<h2>原神</h2>
-<div class="price">60晶石 $30</div>
-<div class="price">300晶石 $140</div>
-<div class="price">980晶石 $400</div>
-<div class="price">1980晶石 $760</div>
-<div class="price">3280晶石 $1350</div>
-<div class="price">6480晶石 $2170</div>
-</div>
 
 <div class="game">
-<h2>崩壞星穹鐵道</h2>
-<div class="price">60星瓊 $30</div>
-<div class="price">300星瓊 $140</div>
-<div class="price">980星瓊 $400</div>
-<div class="price">1980星瓊 $760</div>
-<div class="price">3280星瓊 $1350</div>
-<div class="price">6480星瓊 $2170</div>
+
+<div class="game-title">原神</div>
+
+<div class="prices">
+
+<div class="price">原神 60晶石 $30</div>
+<div class="price">原神 300晶石 $140</div>
+<div class="price">原神 980晶石 $400</div>
+<div class="price">原神 1980晶石 $760</div>
+<div class="price">原神 3280晶石 $1350</div>
+<div class="price">原神 6480晶石 $2170</div>
+
 </div>
 
-<div class="game">
-<h2>APEX</h2>
-<div class="price">1000金幣 $220</div>
-<div class="price">2150金幣 $420</div>
-<div class="price">4350金幣 $820</div>
 </div>
 
+
 <div class="game">
-<h2>LOL</h2>
-<div class="price">375聯盟幣 $150</div>
-<div class="price">610聯盟幣 $230</div>
-<div class="price">1380聯盟幣 $500</div>
+
+<div class="game-title">崩壞星穹鐵道</div>
+
+<div class="prices">
+
+<div class="price">崩鐵 60星瓊 $30</div>
+<div class="price">崩鐵 300星瓊 $140</div>
+<div class="price">崩鐵 980星瓊 $400</div>
+<div class="price">崩鐵 1980星瓊 $760</div>
+<div class="price">崩鐵 3280星瓊 $1350</div>
+<div class="price">崩鐵 6480星瓊 $2170</div>
+
 </div>
+
+</div>
+
+
+<div class="game">
+
+<div class="game-title">APEX</div>
+
+<div class="prices">
+
+<div class="price">APEX 1000金幣 $220</div>
+<div class="price">APEX 2150金幣 $420</div>
+<div class="price">APEX 4350金幣 $820</div>
+
+</div>
+
+</div>
+
+
+<div class="game">
+
+<div class="game-title">LOL</div>
+
+<div class="prices">
+
+<div class="price">LOL 375聯盟幣 $150</div>
+<div class="price">LOL 610聯盟幣 $230</div>
+<div class="price">LOL 1380聯盟幣 $500</div>
+
+</div>
+
+</div>
+
 
 <div class="notice">
 ✨價格每日浮動，依照官方當天報價為主✨
 </div>
 
-<a class="line" href="#">
-LINE客服下單
+</div>
+
+
+<a class="line" href="https://line.me/ti/p/pf0zYhi55P">
+LINE客服
 </a>
 
-</div>
 
 <script>
 
+
+// 展開遊戲
+
+let titles=document.querySelectorAll(".game-title")
+
+titles.forEach(title=>{
+
+title.onclick=function(){
+
+let prices=this.nextElementSibling
+
+if(prices.style.display=="block"){
+
+prices.style.display="none"
+
+}else{
+
+prices.style.display="block"
+
+}
+
+}
+
+})
+
+
+
+// 搜尋
+
 let input=document.getElementById("search")
-let games=document.getElementsByClassName("game")
 
 input.onkeyup=function(){
 
 let text=input.value.toLowerCase()
+
+let games=document.getElementsByClassName("game")
 
 for(let i=0;i<games.length;i++){
 
 let name=games[i].innerText.toLowerCase()
 
 if(name.includes(text)){
+
 games[i].style.display="block"
+
 }else{
+
 games[i].style.display="none"
-}
 
 }
 
 }
+
+}
+
+
+
+// 點價格
+
+let prices=document.querySelectorAll(".price")
+
+prices.forEach(p=>{
+
+p.onclick=function(){
+
+navigator.clipboard.writeText(this.innerText)
+
+alert("已複製："+this.innerText)
+
+}
+
+})
+
 
 </script>
 
