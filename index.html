@@ -39,46 +39,55 @@ font-size:16px;
 
 .container{
 padding:20px;
-max-width:600px;
+max-width:700px;
 margin:auto;
 }
 
-.game{
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:20px;
+}
+
+.card{
 background:white;
-margin:18px 0;
 border-radius:14px;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
+box-shadow:0 6px 15px rgba(0,0,0,0.08);
+cursor:pointer;
 overflow:hidden;
 }
 
-.game-title{
-padding:18px;
-font-size:18px;
-background:#f6f7fb;
-cursor:pointer;
+.card img{
+width:100%;
+height:120px;
+object-fit:cover;
+}
+
+.card-title{
+padding:12px;
+font-weight:bold;
 }
 
 .prices{
 display:none;
+background:white;
+border-radius:14px;
+margin-top:15px;
 padding:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
 .price{
 background:#f2f3f7;
-margin:8px 0;
 padding:14px;
+margin:8px 0;
 border-radius:10px;
 cursor:pointer;
-transition:0.2s;
 }
 
 .price:hover{
 background:#e6e8f0;
-}
-
-.hot{
-color:#ff7a00;
-font-size:14px;
 }
 
 .line{
@@ -108,20 +117,58 @@ font-size:14px;
 <header>
 
 <h1>🎮 呼嚕嚕手遊代儲</h1>
-<div class="subtitle">快速儲值 · 安全可靠</div>
+<div class="subtitle">安全 · 快速 · 即時儲值</div>
 
 <input id="search" placeholder="搜尋遊戲">
 
 </header>
 
-<div class="container" id="games">
+
+<div class="container">
+
+<div class="grid" id="games">
+
+<div class="card" onclick="showGame('genshin')">
+
+<img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg">
+
+<div class="card-title">原神</div>
+
+</div>
 
 
-<div class="game">
+<div class="card" onclick="showGame('starrail')">
 
-<div class="game-title">🔥 原神 <span class="hot">熱門</span></div>
+<img src="https://upload.wikimedia.org/wikipedia/en/3/33/Honkai_Star_Rail_logo.png">
 
-<div class="prices">
+<div class="card-title">崩壞星穹鐵道</div>
+
+</div>
+
+
+<div class="card" onclick="showGame('apex')">
+
+<img src="https://upload.wikimedia.org/wikipedia/en/d/db/Apex_legends_cover.jpg">
+
+<div class="card-title">APEX</div>
+
+</div>
+
+
+<div class="card" onclick="showGame('lol')">
+
+<img src="https://upload.wikimedia.org/wikipedia/en/7/77/League_of_Legends_logo.png">
+
+<div class="card-title">LOL</div>
+
+</div>
+
+</div>
+
+
+<div id="genshin" class="prices">
+
+<h3>原神</h3>
 
 <div class="price" data-game="原神" data-item="60晶石" data-price="30">60晶石 $30</div>
 <div class="price" data-game="原神" data-item="300晶石" data-price="140">300晶石 $140</div>
@@ -132,32 +179,23 @@ font-size:14px;
 
 </div>
 
-</div>
 
+<div id="starrail" class="prices">
 
-<div class="game">
-
-<div class="game-title">🔥 崩壞星穹鐵道 <span class="hot">熱門</span></div>
-
-<div class="prices">
+<h3>崩壞星穹鐵道</h3>
 
 <div class="price" data-game="崩鐵" data-item="60星瓊" data-price="30">60星瓊 $30</div>
 <div class="price" data-game="崩鐵" data-item="300星瓊" data-price="140">300星瓊 $140</div>
 <div class="price" data-game="崩鐵" data-item="980星瓊" data-price="400">980星瓊 $400</div>
 <div class="price" data-game="崩鐵" data-item="1980星瓊" data-price="760">1980星瓊 $760</div>
-<div class="price" data-game="崩鐵" data-item="3280星瓊" data-price="1350">3280星瓊 $1350</div>
 <div class="price" data-game="崩鐵" data-item="6480星瓊" data-price="2170">6480星瓊 $2170</div>
 
 </div>
 
-</div>
 
+<div id="apex" class="prices">
 
-<div class="game">
-
-<div class="game-title">APEX</div>
-
-<div class="prices">
+<h3>APEX</h3>
 
 <div class="price" data-game="APEX" data-item="1000金幣" data-price="220">1000金幣 $220</div>
 <div class="price" data-game="APEX" data-item="2150金幣" data-price="420">2150金幣 $420</div>
@@ -165,20 +203,14 @@ font-size:14px;
 
 </div>
 
-</div>
 
+<div id="lol" class="prices">
 
-<div class="game">
-
-<div class="game-title">LOL</div>
-
-<div class="prices">
+<h3>LOL</h3>
 
 <div class="price" data-game="LOL" data-item="375聯盟幣" data-price="150">375聯盟幣 $150</div>
 <div class="price" data-game="LOL" data-item="610聯盟幣" data-price="230">610聯盟幣 $230</div>
 <div class="price" data-game="LOL" data-item="1380聯盟幣" data-price="500">1380聯盟幣 $500</div>
-
-</div>
 
 </div>
 
@@ -190,53 +222,22 @@ font-size:14px;
 </div>
 
 
-<a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
+<a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
 
 
 <script>
 
+function showGame(id){
 
-// 展開遊戲
+let sections=document.querySelectorAll(".prices")
 
-let titles=document.querySelectorAll(".game-title")
+sections.forEach(s=>s.style.display="none")
 
-titles.forEach(title=>{
-title.onclick=function(){
-
-let prices=this.nextElementSibling
-
-prices.style.display =
-prices.style.display=="block" ? "none" : "block"
-
-}
-})
-
-
-
-// 搜尋
-
-let input=document.getElementById("search")
-
-input.onkeyup=function(){
-
-let text=input.value.toLowerCase()
-
-let games=document.getElementsByClassName("game")
-
-for(let i=0;i<games.length;i++){
-
-let name=games[i].innerText.toLowerCase()
-
-games[i].style.display =
-name.includes(text) ? "block" : "none"
-
-}
+document.getElementById(id).style.display="block"
 
 }
 
 
-
-// LINE下單
 
 let prices=document.querySelectorAll(".price")
 
@@ -261,7 +262,6 @@ window.open(url)
 }
 
 })
-
 
 </script>
 
