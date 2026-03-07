@@ -59,10 +59,6 @@ transition:0.25s;
 color:black;
 }
 
-.card:hover{
-transform:scale(1.05);
-}
-
 .card img{
 width:100%;
 height:120px;
@@ -92,11 +88,6 @@ margin:8px 0;
 border-radius:10px;
 }
 
-.notice{
-margin-top:20px;
-color:#94a3b8;
-}
-
 .line{
 position:fixed;
 bottom:20px;
@@ -108,10 +99,14 @@ color:white;
 text-decoration:none;
 }
 
+.notice{
+margin-top:20px;
+color:#94a3b8;
+}
+
 </style>
 
 </head>
-
 
 <body>
 
@@ -124,86 +119,41 @@ text-decoration:none;
 
 </header>
 
-
 <div class="container">
 
 <div class="grid" id="games">
 
-<div class="card" data-key="原神 genshin yuanshen">
+<div class="card" data-name="原神">
 
-<img src="https://cdn.akamai.steamstatic.com/steam/apps/990080/header.jpg">
+<img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg">
 
 <div class="card-title">原神</div>
 
 </div>
 
+<div class="card" data-name="崩壞星穹鐵道">
 
-<div class="card" data-key="崩壞 崩鐵 星穹鐵道 honkai starrail">
-
-<img src="https://cdn.akamai.steamstatic.com/steam/apps/1817070/header.jpg">
+<img src="https://upload.wikimedia.org/wikipedia/en/b/b5/Honkai_Star_Rail.png">
 
 <div class="card-title">崩壞星穹鐵道</div>
 
 </div>
 
+<div class="card" data-name="Apex">
 
-<div class="card" data-key="apex apexlegends a">
-
-<img src="https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg">
+<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg">
 
 <div class="card-title">APEX</div>
 
 </div>
 
+<div class="card" data-name="LOL">
 
-<div class="card" data-key="lol leagueoflegends l 英雄聯盟">
-
-<img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg">
 
 <div class="card-title">LOL</div>
 
 </div>
-
-</div>
-
-
-<div class="prices" id="genshin">
-
-<h3>原神</h3>
-
-<div class="price"><span>60晶石</span><span>$30</span></div>
-<div class="price"><span>300晶石</span><span>$140</span></div>
-<div class="price"><span>980晶石</span><span>$400</span></div>
-
-</div>
-
-
-<div class="prices" id="starrail">
-
-<h3>崩壞星穹鐵道</h3>
-
-<div class="price"><span>60星瓊</span><span>$30</span></div>
-<div class="price"><span>300星瓊</span><span>$140</span></div>
-
-</div>
-
-
-<div class="prices" id="apex">
-
-<h3>APEX</h3>
-
-<div class="price"><span>1000金幣</span><span>$220</span></div>
-<div class="price"><span>2150金幣</span><span>$420</span></div>
-
-</div>
-
-
-<div class="prices" id="lol">
-
-<h3>LOL</h3>
-
-<div class="price"><span>375聯盟幣</span><span>$150</span></div>
-<div class="price"><span>610聯盟幣</span><span>$230</span></div>
 
 </div>
 
@@ -218,38 +168,19 @@ text-decoration:none;
 <a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
 
 
-
 <script>
 
 const cards=document.querySelectorAll(".card")
-const prices=document.querySelectorAll(".prices")
 
-cards.forEach((card,index)=>{
+document.getElementById("search").addEventListener("input",function(){
 
-card.onclick=function(){
-
-prices.forEach(p=>p.style.display="none")
-
-prices[index].style.display="block"
-
-}
-
-})
-
-
-const input=document.getElementById("search")
-
-input.addEventListener("input",function(){
-
-let text=input.value.toLowerCase()
-
-prices.forEach(p=>p.style.display="none")
+let text=this.value.toLowerCase()
 
 cards.forEach(card=>{
 
-let keys=card.dataset.key.toLowerCase()
+let name=card.dataset.name.toLowerCase()
 
-if(keys.includes(text) || text===""){
+if(name.startsWith(text) || text===""){
 card.style.display="block"
 }else{
 card.style.display="none"
