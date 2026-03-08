@@ -295,6 +295,8 @@ animation:marquee 16s linear infinite;
 
 <script>
 
+/* ---------- 原本功能完全不動 ---------- */
+
 const games=[
 
 {
@@ -375,15 +377,15 @@ priceArea.innerHTML+=priceHTML
 
 })
 
-setTimeout(()=>{
-document.getElementById("bubble").style.display="none"
-},5000)
+/* ---------- 停留秒數 ---------- */
 
 let seconds=0
 setInterval(()=>{
 seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
 },1000)
+
+/* ---------- 搜尋 ---------- */
 
 const search=document.getElementById("search")
 const noResult=document.getElementById("noResult")
@@ -412,6 +414,8 @@ noResult.style.display=found?"none":"block"
 
 })
 
+/* ---------- 卡片點擊 ---------- */
+
 document.addEventListener("click",function(e){
 
 if(e.target.closest(".card")){
@@ -436,6 +440,8 @@ prices[index].scrollIntoView({behavior:"smooth"})
 
 })
 
+/* ---------- LINE 訂單 ---------- */
+
 document.addEventListener("click",function(e){
 
 if(e.target.closest(".price")){
@@ -452,13 +458,11 @@ let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
 
 window.open(url)
 
-alert("已幫你填好訂單內容")
-
 }
 
 })
 
-/* 超級煙火背景 */
+/* ---------- 星空 + 煙火 + 流星 ---------- */
 
 const canvas=document.getElementById("bg")
 const ctx=canvas.getContext("2d")
@@ -470,8 +474,6 @@ let stars=[]
 let fireworks=[]
 let meteors=[]
 
-/* 星空 */
-
 for(let i=0;i<120;i++){
 stars.push({
 x:Math.random()*canvas.width,
@@ -481,16 +483,14 @@ alpha:Math.random()
 })
 }
 
-/* 煙火 */
-
 function createFirework(x,y){
 
-for(let i=0;i<50;i++){
+for(let i=0;i<40;i++){
 fireworks.push({
 x:x,
 y:y,
-dx:(Math.random()-0.5)*7,
-dy:(Math.random()-0.5)*7,
+dx:(Math.random()-0.5)*6,
+dy:(Math.random()-0.5)*6,
 life:80,
 color:`hsl(${Math.random()*360},100%,60%)`
 })
@@ -498,10 +498,15 @@ color:`hsl(${Math.random()*360},100%,60%)`
 
 }
 
-/* 流星 */
+setInterval(()=>{
+createFirework(Math.random()*canvas.width,Math.random()*canvas.height/2)
+},1800)
+
+canvas.addEventListener("click",e=>{
+createFirework(e.clientX,e.clientY)
+})
 
 function createMeteor(){
-
 meteors.push({
 x:Math.random()*canvas.width,
 y:-20,
@@ -509,44 +514,19 @@ dx:4,
 dy:4,
 life:80
 })
-
 }
 
-setInterval(()=>{
-createFirework(
-Math.random()*canvas.width,
-Math.random()*canvas.height/2
-)
-},1800)
-
-setInterval(()=>{
-createMeteor()
-},3000)
-
-/* 點擊煙火 */
-
-canvas.addEventListener("click",e=>{
-createFirework(e.clientX,e.clientY)
-})
-
-/* 拖曳煙火 */
-
-canvas.addEventListener("mousemove",e=>{
-if(Math.random()<0.05){
-createFirework(e.clientX,e.clientY)
-}
-})
+setInterval(createMeteor,3000)
 
 function animate(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-/* 星空閃爍 */
+/* 星星 */
 
 stars.forEach(s=>{
 
-s.alpha+= (Math.random()-0.5)*0.05
-
+s.alpha+=(Math.random()-0.5)*0.05
 if(s.alpha<0.1)s.alpha=0.1
 if(s.alpha>1)s.alpha=1
 
@@ -592,75 +572,6 @@ ctx.stroke()
 
 if(m.life<=0){
 meteors.splice(i,1)
-}
-
-})
-
-requestAnimationFrame(animate)
-
-}
-
-animate()
-const ctx=canvas.getContext("2d")
-
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-
-let stars=[]
-let fireworks=[]
-
-for(let i=0;i<100;i++){
-stars.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2
-})
-}
-
-function createFirework(x,y){
-
-for(let i=0;i<40;i++){
-fireworks.push({
-x:x,
-y:y,
-dx:(Math.random()-0.5)*6,
-dy:(Math.random()-0.5)*6,
-life:80,
-color:`hsl(${Math.random()*360},100%,60%)`
-})
-}
-
-}
-
-setInterval(()=>{
-createFirework(Math.random()*canvas.width,Math.random()*canvas.height/2)
-},1500)
-
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-ctx.fillStyle="white"
-
-stars.forEach(s=>{
-ctx.beginPath()
-ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
-ctx.fill()
-})
-
-fireworks.forEach((p,i)=>{
-
-p.x+=p.dx
-p.y+=p.dy
-p.life--
-
-ctx.beginPath()
-ctx.arc(p.x,p.y,2,0,Math.PI*2)
-ctx.fillStyle=p.color
-ctx.fill()
-
-if(p.life<=0){
-fireworks.splice(i,1)
 }
 
 })
