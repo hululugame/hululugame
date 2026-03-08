@@ -155,11 +155,14 @@ border-radius:10px;
 font-weight:bold;
 cursor:pointer;
 transition:0.2s;
+position:relative;
+overflow:hidden;
 }
 
 .price:hover{
 background:#e2e8f0;
 transform:scale(1.02);
+box-shadow:0 0 10px rgba(37,99,235,0.4);
 }
 
 .price span:last-child{
@@ -237,6 +240,15 @@ animation:marquee 16s linear infinite;
 100%{transform:translateX(-100%);}
 }
 
+/* 搜尋無結果 */
+
+.no-result{
+display:none;
+margin-top:20px;
+color:#94a3b8;
+font-size:14px;
+}
+
 </style>
 
 </head>
@@ -286,6 +298,10 @@ animation:marquee 16s linear infinite;
 <div class="card-title">LOL</div>
 </div>
 
+</div>
+
+<div class="no-result" id="noResult">
+找不到這個遊戲
 </div>
 
 
@@ -369,10 +385,12 @@ behavior:"smooth"
 })
 
 const search=document.getElementById("search")
+const noResult=document.getElementById("noResult")
 
 search.addEventListener("input",function(){
 
 let text=this.value.toLowerCase()
+let found=false
 
 prices.forEach(p=>p.style.display="none")
 
@@ -382,11 +400,14 @@ let name=card.dataset.name.toLowerCase()
 
 if(name.startsWith(text) || text===""){
 card.style.display="block"
+found=true
 }else{
 card.style.display="none"
 }
 
 })
+
+noResult.style.display = found ? "none" : "block"
 
 })
 
