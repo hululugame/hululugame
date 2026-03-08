@@ -270,23 +270,18 @@ display:none;
 box-shadow:0 5px 15px rgba(0,0,0,0.4);
 }
 
-/* 新增：熱門排行榜 */
+/* 玩家評論 */
 
-.rank{
-margin-top:30px;
+.reviews{
+margin-top:40px;
+}
+
+.review{
 background:#1e293b;
-padding:15px;
-border-radius:12px;
-}
-
-.rank h3{
-margin-top:0;
-font-size:16px;
-}
-
-.rank div{
+padding:14px;
+margin:10px 0;
+border-radius:10px;
 font-size:14px;
-margin:4px 0;
 }
 
 </style>
@@ -342,13 +337,6 @@ margin:4px 0;
 
 </div>
 
-<div class="rank">
-<h3>🔥 今日熱門遊戲</h3>
-<div>1️⃣ 原神</div>
-<div>2️⃣ 崩壞星穹鐵道</div>
-<div>3️⃣ APEX</div>
-</div>
-
 <div class="no-result" id="noResult">
 找不到這個遊戲
 </div>
@@ -392,6 +380,18 @@ margin:4px 0;
 </div>
 
 <div class="counter" id="counter"></div>
+<div class="counter" id="stayTime"></div>
+
+<!-- 玩家評論 -->
+
+<div class="reviews">
+<h3>⭐ 玩家評價</h3>
+
+<div class="review">玩家 Jason：儲值很快，大概5分鐘就完成了！</div>
+<div class="review">玩家 小宇：價格比官方便宜，客服回覆很快。</div>
+<div class="review">玩家 Kevin：已經買很多次了，很穩定。</div>
+
+</div>
 
 </div>
 
@@ -420,6 +420,14 @@ document.getElementById("counter").innerText="本站訪問次數："+count
 
 let online=Math.floor(Math.random()*6)+2
 document.getElementById("onlineCount").innerText="目前在線："+online+" 人"
+
+/* 停留時間 */
+
+let seconds=0
+setInterval(()=>{
+seconds++
+document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
+},1000)
 
 /* 即時購買通知 */
 
