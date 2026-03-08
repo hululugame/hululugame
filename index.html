@@ -873,27 +873,3 @@ loading.style.display="none"
 },1500)
 
 })
-
-/* 防右鍵 */
-document.addEventListener("contextmenu",function(e){
-e.preventDefault()
-})
-
-/* 防F12 */
-document.onkeydown=function(e){
-
-if(e.keyCode==123){
-return false
-}
-
-if(e.ctrlKey && e.shiftKey && e.keyCode==73){
-return false
-}
-
-if(e.ctrlKey && e.shiftKey && e.keyCode==74){
-return false
-}
-
-if(e.ctrlKey && e.keyCode==85){
-return false
-}
