@@ -48,23 +48,17 @@ input:focus{
 box-shadow:0 0 10px #3b82f6;
 }
 
-/* 容器 */
-
 .container{
 max-width:750px;
 margin:auto;
 padding:20px;
 }
 
-/* 遊戲卡片區 */
-
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:16px;
 }
-
-/* 卡片動畫 */
 
 .card{
 background:white;
@@ -99,8 +93,6 @@ transform:scale(1.05);
 box-shadow:0 0 25px rgba(37,99,235,0.7);
 }
 
-/* 點擊選中 */
-
 .card.active{
 outline:3px solid #3b82f6;
 }
@@ -116,8 +108,6 @@ padding:12px;
 font-weight:bold;
 }
 
-/* HOT標籤 */
-
 .hot{
 position:absolute;
 background:#ef4444;
@@ -129,8 +119,6 @@ top:8px;
 left:8px;
 font-weight:bold;
 }
-
-/* 價目表 */
 
 .prices{
 display:none;
@@ -164,21 +152,16 @@ border-radius:10px;
 font-weight:bold;
 cursor:pointer;
 transition:0.2s;
-position:relative;
-overflow:hidden;
 }
 
 .price:hover{
 background:#e2e8f0;
 transform:scale(1.02);
-box-shadow:0 0 10px rgba(37,99,235,0.4);
 }
 
 .price span:last-child{
 color:#2563eb;
 }
-
-/* 信任區塊 */
 
 .trust{
 margin-top:30px;
@@ -193,8 +176,6 @@ padding:14px;
 border-radius:10px;
 font-size:14px;
 }
-
-/* LINE客服 */
 
 .line{
 position:fixed;
@@ -216,8 +197,6 @@ animation:pulse 2s infinite;
 100%{transform:scale(1)}
 }
 
-/* 回到頂部 */
-
 .top{
 position:fixed;
 bottom:90px;
@@ -231,14 +210,10 @@ font-size:14px;
 box-shadow:0 5px 12px rgba(0,0,0,0.3);
 }
 
-/* 公告 */
-
 .notice{
 margin-top:20px;
 color:#94a3b8;
 }
-
-/* 跑馬燈 */
 
 .marquee{
 width:100%;
@@ -264,8 +239,6 @@ animation:marquee 16s linear infinite;
 100%{transform:translateX(-100%);}
 }
 
-/* 搜尋無結果 */
-
 .no-result{
 display:none;
 margin-top:20px;
@@ -273,24 +246,32 @@ color:#94a3b8;
 font-size:14px;
 }
 
-/* 訪問計數 */
-
 .counter{
 margin-top:20px;
 font-size:13px;
 color:#94a3b8;
 }
 
-/* 在線提示 */
+/* 在線人數 */
 
-.online{
+.online-count{
+margin-top:8px;
+font-size:13px;
+color:#94a3b8;
+}
+
+/* 即時通知 */
+
+.toast{
 position:fixed;
-bottom:70px;
-right:20px;
-font-size:12px;
-background:#16a34a;
-padding:6px 10px;
-border-radius:20px;
+bottom:120px;
+left:20px;
+background:#111827;
+padding:12px 16px;
+border-radius:10px;
+font-size:13px;
+display:none;
+box-shadow:0 5px 15px rgba(0,0,0,0.4);
 }
 
 </style>
@@ -314,6 +295,8 @@ border-radius:20px;
 <div class="subtitle">安全 · 快速 · 即時儲值</div>
 
 <input id="search" placeholder="搜尋遊戲">
+
+<div class="online-count" id="onlineCount"></div>
 
 </header>
 
@@ -350,8 +333,7 @@ border-radius:20px;
 找不到這個遊戲
 </div>
 
-
-<!-- 原神價目 -->
+<!-- 價目表 -->
 
 <div class="prices" id="price0">
 <h3>原神</h3>
@@ -360,17 +342,11 @@ border-radius:20px;
 <div class="price"><span>980晶石</span><span>$400</span></div>
 </div>
 
-
-<!-- 崩壞價目 -->
-
 <div class="prices" id="price1">
 <h3>崩壞星穹鐵道</h3>
 <div class="price"><span>60星瓊</span><span>$30</span></div>
 <div class="price"><span>300星瓊</span><span>$140</span></div>
 </div>
-
-
-<!-- Apex價目 -->
 
 <div class="prices" id="price2">
 <h3>APEX</h3>
@@ -378,20 +354,15 @@ border-radius:20px;
 <div class="price"><span>2150金幣</span><span>$420</span></div>
 </div>
 
-
-<!-- LOL價目 -->
-
 <div class="prices" id="price3">
 <h3>LOL</h3>
 <div class="price"><span>375聯盟幣</span><span>$150</span></div>
 <div class="price"><span>610聯盟幣</span><span>$230</span></div>
 </div>
 
-
 <div class="notice">
 ✨價格每日浮動，依照官方當天報價為主✨
 </div>
-
 
 <div class="trust">
 <div>🔒 官方匯率代儲</div>
@@ -404,13 +375,14 @@ border-radius:20px;
 
 </div>
 
-
 <a class="top" href="#top">⬆</a>
-<div class="online">客服在線</div>
 <a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
 
+<div class="toast" id="toast"></div>
 
 <script>
+
+/* 訪問次數 */
 
 let count=localStorage.getItem("visit")
 
@@ -424,6 +396,34 @@ localStorage.setItem("visit",count)
 
 document.getElementById("counter").innerText="本站訪問次數："+count
 
+/* 在線人數 */
+
+let online=Math.floor(Math.random()*6)+2
+document.getElementById("onlineCount").innerText="目前在線："+online+" 人"
+
+/* 即時購買通知 */
+
+const players=["小明","阿豪","Jason","小宇","Kevin"]
+const games=["原神","崩壞星穹鐵道","APEX","LOL"]
+
+setInterval(()=>{
+
+let player=players[Math.floor(Math.random()*players.length)]
+let game=games[Math.floor(Math.random()*games.length)]
+
+let toast=document.getElementById("toast")
+
+toast.innerText="🎉 玩家 "+player+" 成功購買 "+game
+
+toast.style.display="block"
+
+setTimeout(()=>{
+toast.style.display="none"
+},3000)
+
+},9000)
+
+/* 原本功能 */
 
 const cards=document.querySelectorAll(".card")
 const prices=document.querySelectorAll(".prices")
