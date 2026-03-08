@@ -1,3 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>呼嚕嚕手遊代儲</title>
+
+<style>
+
+html{scroll-behavior:smooth;}
+
+body{
+background:#0f172a;
+font-family:Arial;
+margin:0;
+color:white;
+text-align:center;
+}
+
+/* 星空煙火背景 */
+
+#bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+pointer-events:none;
+}
+
+header{padding:40px 20px;}
+
+h1{margin:0;font-size:28px;}
+
+.subtitle{color:#94a3b8;margin-top:6px;}
+
+input{
+width:85%;
+padding:14px;
+border-radius:12px;
+border:none;
+margin-top:20px;
+font-size:16px;
+outline:none;
+transition:0.3s;
+}
+
+input:focus{
+box-shadow:0 0 15px #3b82f6;
+transform:scale(1.02);
+}
+
+.container{
+max-width:750px;
+margin:auto;
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.card{
+background:white;
+border-radius:14px;
+overflow:hidden;
+cursor:pointer;
+color:black;
+box-shadow:0 8px 20px rgba(0,0,0,0.25);
+transition:0.3s;
+position:relative;
+}
+
+.card:hover{
+transform:scale(1.06);
+box-shadow:0 0 25px rgba(37,99,235,0.8);
+}
+
+.card.active{
+outline:3px solid #3b82f6;
+box-shadow:0 0 30px rgba(59,130,246,0.9);
+}
+
+.card img{
+width:100%;
+height:120px;
+object-fit:cover;
+}
+
+.card-title{
+padding:12px;
+font-weight:bold;
+}
+
+.hot{
+position:absolute;
+background:#ef4444;
+color:white;
+font-size:12px;
+padding:4px 8px;
+border-radius:8px;
+top:8px;
+left:8px;
+font-weight:bold;
+}
+
+.prices{
+display:none;
+background:white;
+color:black;
+border-radius:14px;
+margin-top:20px;
+padding:20px;
+box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+
+.price{
+display:flex;
+justify-content:space-between;
+background:#f1f5f9;
+padding:14px;
+margin:8px 0;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.price span:last-child{color:#2563eb;}
+
+.trust{
+margin-top:30px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.trust div{
+background:#1e293b;
+padding:14px;
+border-radius:10px;
+font-size:14px;
+}
+
+.line{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#06c755;
+padding:20px 34px;
+border-radius:50px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+font-size:18px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+animation:pulse 2s infinite;
+width:130px;
+text-align:center;
+}
+
+.ig{
+position:fixed;
+bottom:90px;
+right:20px;
+background:#e1306c;
+padding:20px 34px;
+border-radius:50px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+font-size:18px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+animation:pulse 2s infinite;
+width:130px;
+text-align:center;
+}
+
+.bubble{
+position:fixed;
+bottom:160px;
+right:20px;
+background:white;
+color:black;
+padding:12px 16px;
+border-radius:12px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+font-size:14px;
+max-width:200px;
+}
+
+.top{
+position:fixed;
+bottom:220px;
+right:20px;
+background:#3b82f6;
+color:white;
+padding:12px 16px;
+border-radius:50px;
+text-decoration:none;
+font-size:14px;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.08)}
+100%{transform:scale(1)}
+}
+
+.marquee{
+width:100%;
+background:linear-gradient(90deg,#2563eb,#4f46e5);
+color:white;
+padding:14px 0;
+overflow:hidden;
+white-space:nowrap;
+font-size:16px;
+font-weight:bold;
+}
+
+.marquee span{
+display:inline-block;
+padding-left:100%;
+animation:marquee 16s linear infinite;
+}
+
+@keyframes marquee{
+0%{transform:translateX(0);}
+100%{transform:translateX(-100%);}
+}
+
+.notice{margin-top:20px;color:#94a3b8;}
+.counter{margin-top:20px;font-size:13px;color:#94a3b8;}
+.no-result{margin-top:20px;color:#94a3b8;display:none;}
+
+</style>
+
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<a id="top"></a>
+
+<div class="marquee">
+<span>
+🔥公告：代儲皆為人工儲值｜為了加快訂單效率務必確定好帳號密碼｜價格每日浮動｜有任何問題右下連結點擊詢問🔥
+</span>
+</div>
+
+<header>
+
+<h1>🌟 呼嚕嚕手遊代儲 🌟</h1>
+<div class="subtitle">安全 · 快速 · 便宜</div>
+
+<input id="search" placeholder="搜尋遊戲">
+
+</header>
+
+<div class="container">
+
+<div class="grid" id="games"></div>
+
+<div id="noResult" class="no-result">查無此遊戲</div>
+
+<div id="pricesArea"></div>
+
+<div class="notice">
+✨價格每日浮動，依照官方當天報價為主✨
+</div>
+
+<div class="trust">
+<div>⭕️ 正規管道儲值</div>
+<div>⚡ 人工快速儲值</div>
+<div>🔥 永久售後服務</div>
+<div>😎 零鎖率零封號</div>
+</div>
+
+<div class="counter" id="stayTime"></div>
+
+</div>
+
+<div class="bubble" id="bubble">
+歡迎光臨😀<br>
+需要儲值點擊連結下單🌹
+</div>
+
+<a class="top" href="#top">⬆</a>
+
+<a class="ig" href="https://lihi2.cc/b4tEh">IG客服</a>
+<a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
+
+<script>
+
+const games=[
+
+{
+name:"原神",
+img:"https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg",
+hot:true,
+prices:[
+["60創世結晶","$30"],
+["300創世結晶","$140"],
+["980創世結晶","$400"]
+]
+},
+
+{
+name:"崩壞星穹鐵道",
+img:"https://upload.wikimedia.org/wikipedia/zh/1/11/Honkai%EF%BC%9AStar_Rail%E5%B4%A9%E5%A3%9E%EF%BC%9A%E6%98%9F%E7%A9%B9%E9%90%B5%E9%81%93.png",
+hot:true,
+prices:[
+["60古老夢華","$30"],
+["300古老夢華","$140"]
+]
+},
+
+{
+name:"APEX",
+img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg",
+prices:[
+["1000金幣","$220"],
+["2150金幣","$420"]
+]
+},
+
+{
+name:"LOL",
+img:"https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg",
+prices:[
+["375聯盟幣","$150"],
+["610聯盟幣","$230"]
+]
+},
+
+{
+name:"傳說對決",
+img:"https://play-lh.googleusercontent.com/gEgKefzTO44lFUTsxyIqm0HPmFxNX4oxKpNeeklKNCOa9J6f9o4p8oBw4Oc-lYoRvO5-0svcu1uqBlbkpK_Q",
+hot:true,
+prices:[
+["72點卷","$50"],
+["145點卷","$97"],
+["364點卷","$240"]
+]
+}
+
+]
+
+const gameArea=document.getElementById("games")
+const priceArea=document.getElementById("pricesArea")
+
+games.forEach((g,i)=>{
+
+gameArea.innerHTML+=`
+<div class="card" data-name="${g.name}">
+${g.hot?'<div class="hot">HOT</div>':''}
+<img src="${g.img}">
+<div class="card-title">${g.name}</div>
+</div>
+`
+
+let priceHTML=`<div class="prices" id="price${i}">
+<h3>${g.name}</h3>`
+
+g.prices.forEach(p=>{
+priceHTML+=`<div class="price"><span>${p[0]}</span><span>${p[1]}</span></div>`
+})
+
+priceHTML+=`</div>`
+
+priceArea.innerHTML+=priceHTML
+
+})
+
+setTimeout(()=>{
+document.getElementById("bubble").style.display="none"
+},5000)
+
+let seconds=0
+setInterval(()=>{
+seconds++
+document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
+},1000)
+
+const search=document.getElementById("search")
+const noResult=document.getElementById("noResult")
+
+search.addEventListener("input",function(){
+
+let text=this.value.toLowerCase()
+let found=false
+
+document.querySelectorAll(".prices").forEach(p=>p.style.display="none")
+
+document.querySelectorAll(".card").forEach(card=>{
+
+let name=card.dataset.name.toLowerCase()
+
+if(name.includes(text)||text===""){
+card.style.display="block"
+found=true
+}else{
+card.style.display="none"
+}
+
+})
+
+noResult.style.display=found?"none":"block"
+
+})
+
+document.addEventListener("click",function(e){
+
+if(e.target.closest(".card")){
+
+let cards=document.querySelectorAll(".card")
+let prices=document.querySelectorAll(".prices")
+
+cards.forEach(c=>c.classList.remove("active"))
+
+let card=e.target.closest(".card")
+card.classList.add("active")
+
+let index=[...cards].indexOf(card)
+
+prices.forEach(p=>p.style.display="none")
+
+prices[index].style.display="block"
+
+prices[index].scrollIntoView({behavior:"smooth"})
+
+}
+
+})
+
+document.addEventListener("click",function(e){
+
+if(e.target.closest(".price")){
+
+let item=e.target.closest(".price")
+
+let game=item.closest(".prices").querySelector("h3").innerText
+let itemName=item.children[0].innerText
+let price=item.children[1].innerText
+
+let text=`我要儲值\n遊戲:${game}\n面額:${itemName}\n價格:${price}`
+
+let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
+
+window.open(url)
+
+alert("已幫你填好訂單內容")
+
+}
+
+})
+
+/* 星空煙火 */
+
 const canvas=document.getElementById("bg")
 const ctx=canvas.getContext("2d")
 
@@ -30,31 +492,21 @@ color:`hsl(${Math.random()*360},100%,60%)`
 
 }
 
-canvas.addEventListener("click",e=>{
-createFirework(e.clientX,e.clientY)
-})
-
 setInterval(()=>{
-createFirework(
-Math.random()*canvas.width,
-Math.random()*canvas.height/2
-)
+createFirework(Math.random()*canvas.width,Math.random()*canvas.height/2)
 },1500)
 
 function animate(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-/* 星空 */
-
 ctx.fillStyle="white"
+
 stars.forEach(s=>{
 ctx.beginPath()
 ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
 ctx.fill()
 })
-
-/* 煙火 */
 
 fireworks.forEach((p,i)=>{
 
@@ -78,3 +530,8 @@ requestAnimationFrame(animate)
 }
 
 animate()
+
+</script>
+
+</body>
+</html>
