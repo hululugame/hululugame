@@ -258,53 +258,6 @@ font-size:13px;
 color:#94a3b8;
 }
 
-.comment-box{
-margin-top:40px;
-background:#1e293b;
-padding:20px;
-border-radius:12px;
-}
-
-.comment-input{
-width:90%;
-padding:10px;
-margin-top:10px;
-border-radius:8px;
-border:none;
-}
-
-.comment-btn{
-margin-top:10px;
-padding:10px 20px;
-border:none;
-border-radius:8px;
-background:#3b82f6;
-color:white;
-cursor:pointer;
-}
-
-.comment{
-background:#111827;
-margin-top:10px;
-padding:10px;
-border-radius:8px;
-font-size:14px;
-text-align:left;
-}
-
-.comment-time{
-font-size:11px;
-color:#9ca3af;
-margin-left:8px;
-}
-
-.like{
-cursor:pointer;
-font-size:12px;
-color:#60a5fa;
-margin-left:10px;
-}
-
 </style>
 
 </head>
@@ -365,19 +318,6 @@ margin-left:10px;
 <div class="counter" id="counter"></div>
 <div class="counter" id="stayTime"></div>
 
-<div class="comment-box">
-
-<h3>💬 玩家留言</h3>
-
-<input class="comment-input" id="name" placeholder="你的暱稱">
-<input class="comment-input" id="message" placeholder="留言內容">
-
-<button class="comment-btn" onclick="addComment()">送出留言</button>
-
-<div id="commentList"></div>
-
-</div>
-
 </div>
 
 <script>
@@ -390,81 +330,6 @@ setInterval(()=>{
 seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
 },1000)
-
-const badWords=["幹","靠","垃圾"]
-
-function filterText(text){
-badWords.forEach(word=>{
-text=text.replaceAll(word,"***")
-})
-return text
-}
-
-function timeAgo(time){
-let sec=Math.floor((Date.now()-time)/1000)
-if(sec<60) return sec+"秒前"
-if(sec<3600) return Math.floor(sec/60)+"分鐘前"
-return Math.floor(sec/3600)+"小時前"
-}
-
-function addComment(){
-
-let name=document.getElementById("name").value
-let message=document.getElementById("message").value
-
-if(!name||!message){
-alert("請填寫完整")
-return
-}
-
-message=filterText(message)
-
-let comments=JSON.parse(localStorage.getItem("comments")||"[]")
-
-comments.push({name,message,time:Date.now(),likes:0})
-
-localStorage.setItem("comments",JSON.stringify(comments))
-
-loadComments()
-
-document.getElementById("message").value=""
-}
-
-function like(i){
-
-let comments=JSON.parse(localStorage.getItem("comments")||"[]")
-
-comments[i].likes++
-
-localStorage.setItem("comments",JSON.stringify(comments))
-
-loadComments()
-
-}
-
-function loadComments(){
-
-let comments=JSON.parse(localStorage.getItem("comments")||"[]")
-
-let html=""
-
-comments.reverse().forEach((c,i)=>{
-
-html+=`<div class="comment">
-<b>${c.name}</b>
-<span class="comment-time">${timeAgo(c.time)}</span>
-<br>
-${c.message}
-<span class="like" onclick="like(${comments.length-1-i})">👍 ${c.likes}</span>
-</div>`
-
-})
-
-document.getElementById("commentList").innerHTML=html
-
-}
-
-loadComments()
 
 </script>
 
