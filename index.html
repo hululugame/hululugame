@@ -415,7 +415,6 @@ background:#ec4899;
 </div>
 
 <div class="counter" id="stayTime"></div>
-<div class="counter" id="clock"></div>
 
 </div>
 
@@ -523,16 +522,6 @@ let seconds=0
 setInterval(()=>{
 seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
-},1000)
-setInterval(()=>{
-const now=new Date()
-
-let h=String(now.getHours()).padStart(2,"0")
-let m=String(now.getMinutes()).padStart(2,"0")
-let s=String(now.getSeconds()).padStart(2,"0")
-
-document.getElementById("clock").innerText="現在時間："+h+":"+m+":"+s
-
 },1000)
 
 /* ---------- 搜尋 ---------- */
