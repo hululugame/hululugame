@@ -799,7 +799,15 @@ behavior:"smooth"
 })
 })
 
+
+document.body.addEventListener("click",function(){
+const music=document.getElementById("bgMusic")
+music.volume=0.2
+music.play()
+},{once:true})
+
 </script>
+<audio id="bgMusic" src="music.mp3" loop></audio>
 <img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo">
     
 </body>
