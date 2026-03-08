@@ -178,31 +178,6 @@ width:130px;
 text-align:center;
 }
 
-.bubble{
-position:fixed;
-bottom:160px;
-right:20px;
-background:white;
-color:black;
-padding:12px 16px;
-border-radius:12px;
-box-shadow:0 6px 15px rgba(0,0,0,0.3);
-font-size:14px;
-max-width:200px;
-}
-
-.top{
-position:fixed;
-bottom:220px;
-right:20px;
-background:#3b82f6;
-color:white;
-padding:12px 16px;
-border-radius:50px;
-text-decoration:none;
-font-size:14px;
-}
-
 @keyframes pulse{
 0%{transform:scale(1)}
 50%{transform:scale(1.08)}
@@ -247,7 +222,7 @@ animation:marquee 16s linear infinite;
 
 <div class="marquee">
 <span>
-🔥公告：代儲皆為人工儲值｜為了加快訂單效率務必確定好帳號密碼｜價格每日浮動｜有任何問題右下連結點擊詢問🔥
+🔥公告：代儲皆為人工儲值｜價格每日浮動｜有任何問題右下連結點擊詢問🔥
 </span>
 </div>
 
@@ -283,13 +258,6 @@ animation:marquee 16s linear infinite;
 
 </div>
 
-<div class="bubble" id="bubble">
-歡迎光臨😀<br>
-需要儲值點擊連結下單🌹
-</div>
-
-<a class="top" href="#top">⬆</a>
-
 <a class="ig" href="https://lihi2.cc/b4tEh">IG客服</a>
 <a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
 
@@ -299,7 +267,7 @@ const games=[
 
 {
 name:"原神",
-img:"https://upload-os-bbs.hoyolab.com/upload/2022/09/28/1695471/7c60dfaf0f7df3c5e2a6e6c64c7a89f0.png",
+img:"https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg",
 hot:true,
 prices:[
 ["60創世結晶","$30"],
@@ -357,7 +325,7 @@ games.forEach((g,i)=>{
 gameArea.innerHTML+=`
 <div class="card" data-name="${g.name}">
 ${g.hot?'<div class="hot">HOT</div>':''}
-<img src="${g.img}" onerror="this.src='https://i.imgur.com/4Z7bK9H.png'">
+<img src="${g.img}">
 <div class="card-title">${g.name}</div>
 </div>
 `
@@ -375,11 +343,44 @@ priceArea.innerHTML+=priceHTML
 
 })
 
+/* 停留秒數 */
+
 let seconds=0
 setInterval(()=>{
 seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
 },1000)
+
+/* 搜尋 */
+
+const search=document.getElementById("search")
+const noResult=document.getElementById("noResult")
+
+search.addEventListener("input",function(){
+
+let text=this.value.toLowerCase()
+let found=false
+
+document.querySelectorAll(".prices").forEach(p=>p.style.display="none")
+
+document.querySelectorAll(".card").forEach(card=>{
+
+let name=card.dataset.name.toLowerCase()
+
+if(name.includes(text)||text===""){
+card.style.display="block"
+found=true
+}else{
+card.style.display="none"
+}
+
+})
+
+noResult.style.display=found?"none":"block"
+
+})
+
+/* 點擊卡片 */
 
 document.addEventListener("click",function(e){
 
