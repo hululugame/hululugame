@@ -374,11 +374,65 @@ background:#22c55e;
 .support-ig{
 background:#ec4899;
 }
+
+/* Loading畫面 */
+
+#loadingScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#020617;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:99999;
+flex-direction:column;
+}
+
+.loadingBox{
+text-align:center;
+color:white;
+font-family:Arial;
+}
+
+.loadingBar{
+width:220px;
+height:10px;
+background:#1e293b;
+border-radius:10px;
+margin-top:20px;
+overflow:hidden;
+}
+
+.loadingProgress{
+width:0%;
+height:100%;
+background:#3b82f6;
+animation:loadingMove 1.5s forwards;
+}
+
+@keyframes loadingMove{
+0%{width:0%}
+100%{width:100%}
+}
+
 </style>
 
 </head>
 
 <body>
+
+<div id="loadingScreen">
+  <div class="loadingBox">
+    <h1>呼嚕嚕手遊代儲</h1>
+    <div class="loadingBar">
+      <div class="loadingProgress"></div>
+    </div>
+    <p>Loading...</p>
+  </div>
+</div>
 
 <canvas id="bg"></canvas>
 
@@ -805,6 +859,20 @@ const music=document.getElementById("bgMusic")
 music.volume=0.2
 music.play()
 },{once:true})
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+const loading=document.getElementById("loadingScreen")
+loading.style.opacity="0"
+
+setTimeout(()=>{
+loading.style.display="none"
+},500)
+
+},1500)
+
+})
 
 </script>
 <audio id="bgMusic" src="videoplayback.mp4" loop></audio>
