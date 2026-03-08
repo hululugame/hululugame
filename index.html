@@ -874,6 +874,32 @@ loading.style.display="none"
 
 })
 
+/* 防右鍵 */
+document.addEventListener("contextmenu",function(e){
+e.preventDefault()
+})
+
+/* 防F12 */
+document.onkeydown=function(e){
+
+if(e.keyCode==123){
+return false
+}
+
+if(e.ctrlKey && e.shiftKey && e.keyCode==73){
+return false
+}
+
+if(e.ctrlKey && e.shiftKey && e.keyCode==74){
+return false
+}
+
+if(e.ctrlKey && e.keyCode==85){
+return false
+}
+
+}
+
 </script>
 <audio id="bgMusic" src="videoplayback.mp4" loop></audio>
 <img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo">
