@@ -353,6 +353,9 @@ display:none;
 flex-direction:column;
 gap:10px;
 margin-bottom:70px;
+opacity:0;
+transform:translateY(20px);
+transition:all 0.3s ease;
 }
 
 .support-menu a{
@@ -369,6 +372,10 @@ background:#22c55e;
 
 .support-ig{
 background:#ec4899;
+}
+.support-menu.show{
+opacity:1;
+transform:translateY(0);
 }
 </style>
 
@@ -425,6 +432,7 @@ background:#ec4899;
 </div>
 
 <div class="support">
+  <div class="support-btn" onclick="toggleSupport()">💬</div>
 
   <div class="support-menu" id="supportMenu">
     <a href="https://line.me/ti/p/pf0z..." target="_blank" class="support-line">LINE客服</a>
@@ -622,17 +630,142 @@ alpha:Math.random()
 })
 }
 
+function createFirework(x,y){
+
+for(let i=0;i<40;i++){
+fireworks.push({
+x:x,
+y:y,
+dx:(Math.random()-0.5)*6,
+dy:(Math.random()-0.5)*6,
+life:80,
+color:`hsl(${Math.random()*360},100%,60%)`
+})
+}
+
+}
+
+setInterval(()=>{
+createFirework(Math.random()*canvas.width,Math.random()*canvas.height/2)
+},1800)
+
+canvas.addEventListener("click",e=>{
+createFirework(e.clientX,e.clientY)
+})
+
+function createMeteor(){
+meteors.push({
+x:Math.random()*canvas.width,
+y:-20,
+dx:4,
+dy:4,
+life:80
+})
+}
+
+setInterval(createMeteor,3000)
+
 function animate(){
+
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
+/* 星星 */
+
 stars.forEach(s=>{
+
+s.alpha+=(Math.random()-0.5)*0.05
+if(s.alpha<0.1)s.alpha=0.1
+if(s.alpha>1)s.alpha=1
+
 ctx.beginPath()
 ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
-ctx.fillStyle="white"
+ctx.fillStyle=`rgba(255,255,255,${s.alpha})`
 ctx.fill()
+
+})
+
+/* 煙火 */
+
+fireworks.forEach((p,i)=>{
+
+p.x+=p.dx
+p.y+=p.dy
+p.life--
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,2,0,Math.PI*2)
+ctx.fillStyle=p.color
+ctx.fill()
+
+if(p.life<=0){
+fireworks.splice(i,1)
+}
+
+})
+
+/* 流星 */
+
+meteors.forEach((m,i)=>{
+
+m.x+=m.dx
+m.y+=m.dy
+m.life--
+
+ctx.beginPath()
+ctx.moveTo(m.x,m.y)
+ctx.lineTo(m.x-20,m.y-20)
+ctx.strokeStyle="white"
+ctx.stroke()
+
+if(m.life<=0){
+meteors.splice(i,1)
+}
+
 })
 
 requestAnimationFrame(animate)
+
 }
 
 animate()
+
+</script>
+<div class="support">
+  <div class="support-btn" onclick="toggleSupport()">💬</div>
+
+  <div class="support-menu" id="supportMenu">
+    <a href="https://line.me/ti/p/pf0z..." target="_blank" class="support-line">LINE客服</a>
+    <a href="https://lihi2.cc/b4tEh" target="_blank" class="support-ig">IG客服</a>
+  </div>
+</div>
+
+<script>
+function toggleSupport(){
+
+const menu = document.getElementById("supportMenu");
+const bubble = document.getElementById("bubble");
+
+if(menu.style.display === "flex"){
+menu.style.display = "none";
+bubble.style.bottom = "90px";
+}else{
+menu.style.display = "flex";
+bubble.style.bottom = "200px";
+}
+}
+
+setTimeout(()=>{
+const bubble=document.getElementById("bubble");
+if(bubble){
+bubble.style.opacity="0";
+setTimeout(()=>{
+bubble.style.display="none";
+},500);
+}
+},5000);
+
+</script>
+<img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo">
+    
+</body>
+</html>
