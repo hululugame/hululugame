@@ -252,15 +252,11 @@ font-size:13px;
 color:#94a3b8;
 }
 
-/* 在線人數 */
-
 .online-count{
 margin-top:8px;
 font-size:13px;
 color:#94a3b8;
 }
-
-/* 即時通知 */
 
 .toast{
 position:fixed;
@@ -274,10 +270,28 @@ display:none;
 box-shadow:0 5px 15px rgba(0,0,0,0.4);
 }
 
+/* 新增：熱門排行榜 */
+
+.rank{
+margin-top:30px;
+background:#1e293b;
+padding:15px;
+border-radius:12px;
+}
+
+.rank h3{
+margin-top:0;
+font-size:16px;
+}
+
+.rank div{
+font-size:14px;
+margin:4px 0;
+}
+
 </style>
 
 </head>
-
 
 <body>
 
@@ -299,7 +313,6 @@ box-shadow:0 5px 15px rgba(0,0,0,0.4);
 <div class="online-count" id="onlineCount"></div>
 
 </header>
-
 
 <div class="container">
 
@@ -327,6 +340,13 @@ box-shadow:0 5px 15px rgba(0,0,0,0.4);
 <div class="card-title">LOL</div>
 </div>
 
+</div>
+
+<div class="rank">
+<h3>🔥 今日熱門遊戲</h3>
+<div>1️⃣ 原神</div>
+<div>2️⃣ 崩壞星穹鐵道</div>
+<div>3️⃣ APEX</div>
 </div>
 
 <div class="no-result" id="noResult">
@@ -478,6 +498,12 @@ noResult.style.display = found ? "none" : "block"
 document.querySelectorAll(".price").forEach(item=>{
 
 item.onclick=function(){
+
+item.style.background="#dbeafe"
+
+setTimeout(()=>{
+item.style.background="#f1f5f9"
+},500)
 
 let game=this.closest(".prices").querySelector("h3").innerText
 let itemName=this.children[0].innerText
