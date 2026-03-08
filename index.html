@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <title>呼嚕嚕手遊代儲</title>
 
+<style>
+
 body{
 background:#0f172a;
 font-family:Arial;
@@ -30,12 +32,10 @@ margin-top:6px;
 input{
 width:85%;
 padding:14px;
-border-radius:12px;
+border-radius:10px;
 border:none;
 margin-top:20px;
 font-size:16px;
-outline:none;
-box-shadow:0 0 0 2px rgba(255,255,255,0.05);
 }
 
 .container{
@@ -47,21 +47,15 @@ padding:20px;
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:18px;
+gap:16px;
 }
 
 .card{
 background:white;
-border-radius:16px;
+border-radius:14px;
 overflow:hidden;
 cursor:pointer;
 color:black;
-box-shadow:0 8px 20px rgba(0,0,0,0.3);
-transition:0.25s;
-}
-
-.card:hover{
-transform:scale(1.05);
 }
 
 .card img{
@@ -73,37 +67,24 @@ object-fit:cover;
 .card-title{
 padding:12px;
 font-weight:bold;
-font-size:16px;
 }
 
 .prices{
 display:none;
 background:white;
 color:black;
-border-radius:16px;
-margin-top:24px;
-padding:18px;
-box-shadow:0 8px 20px rgba(0,0,0,0.3);
-}
-
-.prices h3{
-margin-top:0;
+border-radius:14px;
+margin-top:20px;
+padding:20px;
 }
 
 .price{
 display:flex;
 justify-content:space-between;
-align-items:center;
 background:#f1f5f9;
-padding:14px 16px;
-margin:10px 0;
-border-radius:12px;
-font-size:15px;
-}
-
-.price span:last-child{
-font-weight:bold;
-color:#2563eb;
+padding:14px;
+margin:8px 0;
+border-radius:10px;
 }
 
 .line{
@@ -115,141 +96,149 @@ padding:14px 22px;
 border-radius:50px;
 color:white;
 text-decoration:none;
-font-weight:bold;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
 .notice{
 margin-top:20px;
 color:#94a3b8;
+}
+
+/* 跑馬燈 */
+
+.marquee{
+width:100%;
+background:#2563eb;
+color:white;
+padding:10px 0;
+overflow:hidden;
+white-space:nowrap;
 font-size:14px;
 }
+
+.marquee span{
+display:inline-block;
+padding-left:100%;
+animation:marquee 18s linear infinite;
+}
+
+@keyframes marquee{
+0%{transform:translateX(0);}
+100%{transform:translateX(-100%);}
+}
+
+</style>
+
 </head>
 
+
 <body>
+
+<!-- 跑馬燈公告 -->
+
+<div class="marquee">
+<span>
+🔥公告：代儲皆為人工儲值｜請準備遊戲UID｜價格每日浮動｜LINE客服24小時在線🔥
+</span>
+</div>
+
 
 <header>
 
 <h1>🎮 呼嚕嚕手遊代儲</h1>
 <div class="subtitle">安全 · 快速 · 即時儲值</div>
 
-<div class="search-box">
 <input id="search" placeholder="搜尋遊戲">
-<button>🔍</button>
-</div>
 
 </header>
 
+
 <div class="container">
 
-<div class="section-title">🔥 熱門遊戲</div>
+<div class="grid" id="games">
 
-<div class="games" id="games">
+<div class="card" data-name="原神">
 
-<div class="game-card" data-name="原神 genshin" onclick="showGame('genshin')">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/990080/capsule_616x353.jpg">
-<div class="game-title">原神</div>
-</div>
+<img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg">
 
-<div class="game-card" data-name="崩壞 星穹鐵道 honkai star rail" onclick="showGame('starrail')">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1817070/capsule_616x353.jpg">
-<div class="game-title">崩壞：星穹鐵道</div>
-</div>
-
-<div class="game-card" data-name="apex" onclick="showGame('apex')">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/capsule_616x353.jpg">
-<div class="game-title">APEX</div>
-</div>
-
-<div class="game-card" data-name="lol league of legends" onclick="showGame('lol')">
-<img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg">
-<div class="game-title">LOL</div>
-</div>
+<div class="card-title">原神</div>
 
 </div>
 
+<div class="card" data-name="崩壞星穹鐵道">
 
-<div id="genshin" class="products">
+<img src="https://upload.wikimedia.org/wikipedia/zh/1/11/Honkai%EF%BC%9AStar_Rail%E5%B4%A9%E5%A3%9E%EF%BC%9A%E6%98%9F%E7%A9%B9%E9%90%B5%E9%81%93.png">
 
-<div class="section-title">原神價目表</div>
+<div class="card-title">崩壞星穹鐵道</div>
 
-<div class="product">
-<span>60晶石</span>
-<span>$30</span>
 </div>
 
-<div class="product">
-<span>300晶石</span>
-<span>$140</span>
+<div class="card" data-name="Apex">
+
+<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg">
+
+<div class="card-title">APEX</div>
+
 </div>
 
-<div class="product">
-<span>980晶石</span>
-<span>$400</span>
-</div>
+<div class="card" data-name="LOL">
 
-<div class="product">
-<span>1980晶石</span>
-<span>$760</span>
+<img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg">
+
+<div class="card-title">LOL</div>
+
 </div>
 
 </div>
 
 
-<div id="starrail" class="products">
+<!-- 原神價目 -->
 
-<div class="section-title">崩壞：星穹鐵道</div>
+<div class="prices" id="price0">
 
-<div class="product">
-<span>60星瓊</span>
-<span>$30</span>
-</div>
+<h3>原神</h3>
 
-<div class="product">
-<span>300星瓊</span>
-<span>$140</span>
-</div>
-
-<div class="product">
-<span>980星瓊</span>
-<span>$400</span>
-</div>
+<div class="price"><span>60晶石</span><span>$30</span></div>
+<div class="price"><span>300晶石</span><span>$140</span></div>
+<div class="price"><span>980晶石</span><span>$400</span></div>
 
 </div>
 
 
-<div id="apex" class="products">
+<!-- 崩壞價目 -->
 
-<div class="section-title">APEX</div>
+<div class="prices" id="price1">
 
-<div class="product">
-<span>1000金幣</span>
-<span>$220</span>
-</div>
+<h3>崩壞星穹鐵道</h3>
 
-<div class="product">
-<span>2150金幣</span>
-<span>$420</span>
-</div>
+<div class="price"><span>60星瓊</span><span>$30</span></div>
+<div class="price"><span>300星瓊</span><span>$140</span></div>
 
 </div>
 
 
-<div id="lol" class="products">
+<!-- Apex價目 -->
 
-<div class="section-title">LOL</div>
+<div class="prices" id="price2">
 
-<div class="product">
-<span>375聯盟幣</span>
-<span>$150</span>
-</div>
+<h3>APEX</h3>
 
-<div class="product">
-<span>610聯盟幣</span>
-<span>$230</span>
-</div>
+<div class="price"><span>1000金幣</span><span>$220</span></div>
+<div class="price"><span>2150金幣</span><span>$420</span></div>
 
 </div>
+
+
+<!-- LOL價目 -->
+
+<div class="prices" id="price3">
+
+<h3>LOL</h3>
+
+<div class="price"><span>375聯盟幣</span><span>$150</span></div>
+<div class="price"><span>610聯盟幣</span><span>$230</span></div>
+
+</div>
+
 
 <div class="notice">
 ✨價格每日浮動，依照官方當天報價為主✨
@@ -263,31 +252,42 @@ font-size:14px;
 
 <script>
 
-function showGame(id){
+const cards=document.querySelectorAll(".card")
+const prices=document.querySelectorAll(".prices")
 
-let products=document.querySelectorAll(".products")
+// 點遊戲顯示價目
 
-products.forEach(p=>p.style.display="none")
+cards.forEach((card,i)=>{
 
-document.getElementById(id).style.display="block"
+card.onclick=function(){
+
+prices.forEach(p=>p.style.display="none")
+
+prices[i].style.display="block"
 
 }
 
+})
 
-document.getElementById("search").addEventListener("input",function(){
+
+// 搜尋
+
+const search=document.getElementById("search")
+
+search.addEventListener("input",function(){
 
 let text=this.value.toLowerCase()
 
-let games=document.querySelectorAll(".game-card")
+prices.forEach(p=>p.style.display="none")
 
-games.forEach(game=>{
+cards.forEach(card=>{
 
-let name=game.dataset.name.toLowerCase()
+let name=card.dataset.name.toLowerCase()
 
-if(name.includes(text) || text===""){
-game.style.display="block"
+if(name.startsWith(text) || text===""){
+card.style.display="block"
 }else{
-game.style.display="none"
+card.style.display="none"
 }
 
 })
