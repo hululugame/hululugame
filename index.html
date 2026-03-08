@@ -383,7 +383,7 @@ background:#ec4899;
 <canvas id="bg"></canvas>
 
 <a id="top"></a>
-<a href="#top" class="top" id="backTop">⬆ 回到頂部</a>
+<a class="top" id="backTop">⬆</a>
 
 <div class="marquee">
 <span>
@@ -785,15 +785,18 @@ const backTop=document.getElementById("backTop")
 window.addEventListener("scroll",()=>{
 
 if(window.scrollY>300){
-
 backTop.style.opacity="1"
-
 }else{
-
 backTop.style.opacity="0"
-
 }
 
+})
+
+backTop.addEventListener("click",()=>{
+window.scrollTo({
+top:0,
+behavior:"smooth"
+})
 })
 
 </script>
