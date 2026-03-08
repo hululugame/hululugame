@@ -258,8 +258,6 @@ font-size:13px;
 color:#94a3b8;
 }
 
-/* 留言區 */
-
 .comment-box{
 margin-top:40px;
 background:#1e293b;
@@ -292,6 +290,19 @@ padding:10px;
 border-radius:8px;
 font-size:14px;
 text-align:left;
+}
+
+.comment-time{
+font-size:11px;
+color:#9ca3af;
+margin-left:8px;
+}
+
+.like{
+cursor:pointer;
+font-size:12px;
+color:#60a5fa;
+margin-left:10px;
 }
 
 </style>
@@ -351,48 +362,8 @@ text-align:left;
 找不到這個遊戲
 </div>
 
-<!-- 價目表 -->
-
-<div class="prices" id="price0">
-<h3>原神</h3>
-<div class="price"><span>60晶石</span><span>$30</span></div>
-<div class="price"><span>300晶石</span><span>$140</span></div>
-<div class="price"><span>980晶石</span><span>$400</span></div>
-</div>
-
-<div class="prices" id="price1">
-<h3>崩壞星穹鐵道</h3>
-<div class="price"><span>60星瓊</span><span>$30</span></div>
-<div class="price"><span>300星瓊</span><span>$140</span></div>
-</div>
-
-<div class="prices" id="price2">
-<h3>APEX</h3>
-<div class="price"><span>1000金幣</span><span>$220</span></div>
-<div class="price"><span>2150金幣</span><span>$420</span></div>
-</div>
-
-<div class="prices" id="price3">
-<h3>LOL</h3>
-<div class="price"><span>375聯盟幣</span><span>$150</span></div>
-<div class="price"><span>610聯盟幣</span><span>$230</span></div>
-</div>
-
-<div class="notice">
-✨價格每日浮動，依照官方當天報價為主✨
-</div>
-
-<div class="trust">
-<div>🔒 官方匯率代儲</div>
-<div>⚡ 人工快速儲值</div>
-<div>💬 LINE即時客服</div>
-<div>🕒 24小時服務</div>
-</div>
-
 <div class="counter" id="counter"></div>
 <div class="counter" id="stayTime"></div>
-
-<!-- 留言區 -->
 
 <div class="comment-box">
 
@@ -409,31 +380,10 @@ text-align:left;
 
 </div>
 
-<a class="top" href="#top">⬆</a>
-<a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
-
 <script>
-
-/* 訪問次數 */
-
-let count=localStorage.getItem("visit")
-
-if(!count){
-count=1
-}else{
-count=parseInt(count)+1
-}
-
-localStorage.setItem("visit",count)
-
-document.getElementById("counter").innerText="本站訪問次數："+count
-
-/* 在線人數 */
 
 let online=Math.floor(Math.random()*6)+2
 document.getElementById("onlineCount").innerText="目前在線："+online+" 人"
-
-/* 停留時間 */
 
 let seconds=0
 setInterval(()=>{
@@ -441,96 +391,37 @@ seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
 },1000)
 
-/* 遊戲選擇 */
+const badWords=["幹","靠","垃圾"]
 
-const cards=document.querySelectorAll(".card")
-const prices=document.querySelectorAll(".prices")
-
-cards.forEach((card,i)=>{
-
-card.onclick=function(){
-
-cards.forEach(c=>c.classList.remove("active"))
-card.classList.add("active")
-
-prices.forEach(p=>p.style.display="none")
-
-prices[i].style.display="block"
-
-prices[i].scrollIntoView({
-behavior:"smooth"
+function filterText(text){
+badWords.forEach(word=>{
+text=text.replaceAll(word,"***")
 })
-
+return text
 }
 
-})
-
-/* 搜尋 */
-
-const search=document.getElementById("search")
-const noResult=document.getElementById("noResult")
-
-search.addEventListener("input",function(){
-
-let text=this.value.toLowerCase()
-let found=false
-
-prices.forEach(p=>p.style.display="none")
-
-cards.forEach(card=>{
-
-let name=card.dataset.name.toLowerCase()
-
-if(name.startsWith(text) || text===""){
-card.style.display="block"
-found=true
-}else{
-card.style.display="none"
+function timeAgo(time){
+let sec=Math.floor((Date.now()-time)/1000)
+if(sec<60) return sec+"秒前"
+if(sec<3600) return Math.floor(sec/60)+"分鐘前"
+return Math.floor(sec/3600)+"小時前"
 }
-
-})
-
-noResult.style.display = found ? "none" : "block"
-
-})
-
-/* LINE訂單 */
-
-document.querySelectorAll(".price").forEach(item=>{
-
-item.onclick=function(){
-
-let game=this.closest(".prices").querySelector("h3").innerText
-let itemName=this.children[0].innerText
-let price=this.children[1].innerText
-
-let text=`我要儲值\n遊戲:${game}\n面額:${itemName}\n價格:${price}`
-
-let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
-
-window.open(url)
-
-alert("已幫你填好訂單內容")
-
-}
-
-})
-
-/* 留言功能 */
 
 function addComment(){
 
 let name=document.getElementById("name").value
 let message=document.getElementById("message").value
 
-if(!name || !message){
+if(!name||!message){
 alert("請填寫完整")
 return
 }
 
+message=filterText(message)
+
 let comments=JSON.parse(localStorage.getItem("comments")||"[]")
 
-comments.push({name,message})
+comments.push({name,message,time:Date.now(),likes:0})
 
 localStorage.setItem("comments",JSON.stringify(comments))
 
@@ -539,14 +430,34 @@ loadComments()
 document.getElementById("message").value=""
 }
 
+function like(i){
+
+let comments=JSON.parse(localStorage.getItem("comments")||"[]")
+
+comments[i].likes++
+
+localStorage.setItem("comments",JSON.stringify(comments))
+
+loadComments()
+
+}
+
 function loadComments(){
 
 let comments=JSON.parse(localStorage.getItem("comments")||"[]")
 
 let html=""
 
-comments.reverse().forEach(c=>{
-html+=`<div class="comment"><b>${c.name}</b>：${c.message}</div>`
+comments.reverse().forEach((c,i)=>{
+
+html+=`<div class="comment">
+<b>${c.name}</b>
+<span class="comment-time">${timeAgo(c.time)}</span>
+<br>
+${c.message}
+<span class="like" onclick="like(${comments.length-1-i})">👍 ${c.likes}</span>
+</div>`
+
 })
 
 document.getElementById("commentList").innerHTML=html
