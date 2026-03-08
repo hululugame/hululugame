@@ -874,52 +874,6 @@ loading.style.display="none"
 
 })
 
-/* 防右鍵 */
-document.addEventListener("contextmenu",function(e){
-e.preventDefault()
-})
-
-/* 防F12 */
-document.onkeydown=function(e){
-
-if(e.keyCode==123){
-return false
-}
-
-if(e.ctrlKey && e.shiftKey && e.keyCode==73){
-return false
-}
-
-if(e.ctrlKey && e.shiftKey && e.keyCode==74){
-return false
-}
-
-if(e.ctrlKey && e.keyCode==85){
-return false
-}
-
-}
-if(e.ctrlKey && e.keyCode==85){
-return false
-}
-}
-/* DevTools偵測 */
-setTimeout(()=>{
-
-setInterval(function(){
-
-const devtools =
-window.outerWidth - window.innerWidth > 160 ||
-window.outerHeight - window.innerHeight > 160
-
-if(devtools){
-document.body.innerHTML=""
-}
-
-},1000)
-
-},4000)
-
 </script>
 <audio id="bgMusic" src="videoplayback.mp4" loop></audio>
 <img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo">
