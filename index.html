@@ -19,7 +19,7 @@ position:relative;
 z-index:1;
 }
 
-/* 星空煙火背景 */
+/* 星空煙火 */
 
 #bg{
 position:fixed;
@@ -31,11 +31,23 @@ z-index:0;
 pointer-events:none;
 }
 
-header{padding:40px 20px;}
+/* Header */
 
-h1{margin:0;font-size:28px;}
+header{
+padding:40px 20px;
+}
 
-.subtitle{color:#94a3b8;margin-top:6px;}
+h1{
+margin:0;
+font-size:28px;
+}
+
+.subtitle{
+color:#94a3b8;
+margin-top:6px;
+}
+
+/* 搜尋 */
 
 input{
 width:85%;
@@ -53,11 +65,15 @@ box-shadow:0 0 15px #3b82f6;
 transform:scale(1.02);
 }
 
+/* Container */
+
 .container{
 max-width:750px;
 margin:auto;
 padding:20px;
 }
+
+/* 卡片 */
 
 .grid{
 display:grid;
@@ -74,6 +90,12 @@ color:black;
 box-shadow:0 8px 20px rgba(0,0,0,0.25);
 transition:0.3s;
 position:relative;
+animation:cardIn 0.6s;
+}
+
+@keyframes cardIn{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1}
 }
 
 .card:hover{
@@ -97,6 +119,8 @@ padding:12px;
 font-weight:bold;
 }
 
+/* HOT */
+
 .hot{
 position:absolute;
 background:#ef4444;
@@ -107,7 +131,15 @@ border-radius:8px;
 top:8px;
 left:8px;
 font-weight:bold;
+animation:hotGlow 1.5s infinite alternate;
 }
+
+@keyframes hotGlow{
+from{box-shadow:0 0 5px red}
+to{box-shadow:0 0 15px red}
+}
+
+/* 價格 */
 
 .prices{
 display:none;
@@ -128,9 +160,18 @@ margin:8px 0;
 border-radius:10px;
 font-weight:bold;
 cursor:pointer;
+transition:0.2s;
 }
 
-.price span:last-child{color:#2563eb;}
+.price:hover{
+transform:scale(1.03);
+}
+
+.price span:last-child{
+color:#2563eb;
+}
+
+/* 信任 */
 
 .trust{
 margin-top:30px;
@@ -145,6 +186,8 @@ padding:14px;
 border-radius:10px;
 font-size:14px;
 }
+
+/* 客服 */
 
 .line{
 position:fixed;
@@ -180,36 +223,13 @@ width:130px;
 text-align:center;
 }
 
-.bubble{
-position:fixed;
-bottom:160px;
-right:20px;
-background:white;
-color:black;
-padding:12px 16px;
-border-radius:12px;
-box-shadow:0 6px 15px rgba(0,0,0,0.3);
-font-size:14px;
-max-width:200px;
-}
-
-.top{
-position:fixed;
-bottom:220px;
-right:20px;
-background:#3b82f6;
-color:white;
-padding:12px 16px;
-border-radius:50px;
-text-decoration:none;
-font-size:14px;
-}
-
 @keyframes pulse{
 0%{transform:scale(1)}
 50%{transform:scale(1.08)}
 100%{transform:scale(1)}
 }
+
+/* 跑馬燈 */
 
 .marquee{
 width:100%;
@@ -229,8 +249,8 @@ animation:marquee 16s linear infinite;
 }
 
 @keyframes marquee{
-0%{transform:translateX(0);}
-100%{transform:translateX(-100%);}
+0%{transform:translateX(0)}
+100%{transform:translateX(-100%)}
 }
 
 .notice{margin-top:20px;color:#94a3b8;}
@@ -285,23 +305,18 @@ animation:marquee 16s linear infinite;
 
 </div>
 
-<div class="bubble" id="bubble">
-歡迎光臨😀<br>
-需要儲值點擊連結下單🌹
-</div>
-
-<a class="top" href="#top">⬆</a>
-
 <a class="ig" href="https://lihi2.cc/b4tEh">IG客服</a>
 <a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
 
 <script>
 
+/* 遊戲資料 */
+
 const games=[
 
 {
 name:"原神",
-img:"https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Genshin_Impact_logo.svg/512px-Genshin_Impact_logo.svg.png",
+img:"https://upload-os-bbs.hoyolab.com/upload/2022/09/28/1695471/7c60dfaf0f7df3c5e2a6e6c64c7a89f0_1861970414049338207.png",
 hot:true,
 prices:[
 ["60創世結晶","$30"],
@@ -377,82 +392,13 @@ priceArea.innerHTML+=priceHTML
 
 })
 
+/* 停留時間 */
+
 let seconds=0
 setInterval(()=>{
 seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
 },1000)
-
-const search=document.getElementById("search")
-const noResult=document.getElementById("noResult")
-
-search.addEventListener("input",function(){
-
-let text=this.value.toLowerCase()
-let found=false
-
-document.querySelectorAll(".prices").forEach(p=>p.style.display="none")
-
-document.querySelectorAll(".card").forEach(card=>{
-
-let name=card.dataset.name.toLowerCase()
-
-if(name.includes(text)||text===""){
-card.style.display="block"
-found=true
-}else{
-card.style.display="none"
-}
-
-})
-
-noResult.style.display=found?"none":"block"
-
-})
-
-document.addEventListener("click",function(e){
-
-if(e.target.closest(".card")){
-
-let cards=document.querySelectorAll(".card")
-let prices=document.querySelectorAll(".prices")
-
-cards.forEach(c=>c.classList.remove("active"))
-
-let card=e.target.closest(".card")
-card.classList.add("active")
-
-let index=[...cards].indexOf(card)
-
-prices.forEach(p=>p.style.display="none")
-
-prices[index].style.display="block"
-
-prices[index].scrollIntoView({behavior:"smooth"})
-
-}
-
-})
-
-document.addEventListener("click",function(e){
-
-if(e.target.closest(".price")){
-
-let item=e.target.closest(".price")
-
-let game=item.closest(".prices").querySelector("h3").innerText
-let itemName=item.children[0].innerText
-let price=item.children[1].innerText
-
-let text=`我要儲值\n遊戲:${game}\n面額:${itemName}\n價格:${price}`
-
-let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
-
-window.open(url)
-
-}
-
-})
 
 /* 星空煙火 */
 
@@ -476,7 +422,6 @@ alpha:Math.random()
 }
 
 function createFirework(x,y){
-
 for(let i=0;i<40;i++){
 fireworks.push({
 x:x,
@@ -487,12 +432,13 @@ life:80,
 color:`hsl(${Math.random()*360},100%,60%)`
 })
 }
-
 }
 
-setInterval(()=>{
-createFirework(Math.random()*canvas.width,Math.random()*canvas.height/2)
-},1800)
+canvas.addEventListener("mousemove",e=>{
+if(Math.random()<0.1){
+createFirework(e.clientX,e.clientY)
+}
+})
 
 function createMeteor(){
 meteors.push({
@@ -511,20 +457,13 @@ function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
 stars.forEach(s=>{
-
-s.alpha+=(Math.random()-0.5)*0.05
-if(s.alpha<0.1)s.alpha=0.1
-if(s.alpha>1)s.alpha=1
-
 ctx.beginPath()
 ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
-ctx.fillStyle=`rgba(255,255,255,${s.alpha})`
+ctx.fillStyle="white"
 ctx.fill()
-
 })
 
 fireworks.forEach((p,i)=>{
-
 p.x+=p.dx
 p.y+=p.dy
 p.life--
@@ -534,14 +473,10 @@ ctx.arc(p.x,p.y,2,0,Math.PI*2)
 ctx.fillStyle=p.color
 ctx.fill()
 
-if(p.life<=0){
-fireworks.splice(i,1)
-}
-
+if(p.life<=0)fireworks.splice(i,1)
 })
 
 meteors.forEach((m,i)=>{
-
 m.x+=m.dx
 m.y+=m.dy
 m.life--
@@ -552,10 +487,7 @@ ctx.lineTo(m.x-20,m.y-20)
 ctx.strokeStyle="white"
 ctx.stroke()
 
-if(m.life<=0){
-meteors.splice(i,1)
-}
-
+if(m.life<=0)meteors.splice(i,1)
 })
 
 requestAnimationFrame(animate)
