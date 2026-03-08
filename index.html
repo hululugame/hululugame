@@ -252,12 +252,6 @@ font-size:13px;
 color:#94a3b8;
 }
 
-.online-count{
-margin-top:8px;
-font-size:13px;
-color:#94a3b8;
-}
-
 </style>
 
 </head>
@@ -278,8 +272,6 @@ color:#94a3b8;
 <div class="subtitle">安全 · 快速 · 即時儲值</div>
 
 <input id="search" placeholder="搜尋遊戲">
-
-<div class="online-count" id="onlineCount"></div>
 
 </header>
 
@@ -359,9 +351,6 @@ color:#94a3b8;
 <a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
 
 <script>
-
-let online=Math.floor(Math.random()*6)+2
-document.getElementById("onlineCount").innerText="目前在線："+online+" 人"
 
 let seconds=0
 setInterval(()=>{
