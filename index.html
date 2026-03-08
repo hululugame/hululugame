@@ -84,7 +84,7 @@ box-shadow:0 8px 20px rgba(0,0,0,0.25);
 transition:0.3s;
 position:relative;
 
-animation:cardFade .6s ease;
+animation:cardSlide .6s ease forwards;
 }
 
 .card:hover{
@@ -129,7 +129,16 @@ animation:hotGlow 1.5s infinite;
 50%{box-shadow:0 0 15px rgba(239,68,68,1);}
 100%{box-shadow:0 0 5px rgba(239,68,68,0.4);}
 }
-
+@keyframes cardSlide{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
 .prices{
 display:none;
 background:white;
