@@ -178,6 +178,31 @@ width:130px;
 text-align:center;
 }
 
+.bubble{
+position:fixed;
+bottom:160px;
+right:20px;
+background:white;
+color:black;
+padding:12px 16px;
+border-radius:12px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+font-size:14px;
+max-width:200px;
+}
+
+.top{
+position:fixed;
+bottom:220px;
+right:20px;
+background:#3b82f6;
+color:white;
+padding:12px 16px;
+border-radius:50px;
+text-decoration:none;
+font-size:14px;
+}
+
 @keyframes pulse{
 0%{transform:scale(1)}
 50%{transform:scale(1.08)}
@@ -222,7 +247,7 @@ animation:marquee 16s linear infinite;
 
 <div class="marquee">
 <span>
-🔥公告：代儲皆為人工儲值｜價格每日浮動｜有任何問題右下連結點擊詢問🔥
+🔥公告：代儲皆為人工儲值｜為了加快訂單效率務必確定好帳號密碼｜價格每日浮動｜有任何問題右下連結點擊詢問🔥
 </span>
 </div>
 
@@ -258,10 +283,19 @@ animation:marquee 16s linear infinite;
 
 </div>
 
+<div class="bubble" id="bubble">
+歡迎光臨😀<br>
+需要儲值點擊連結下單🌹
+</div>
+
+<a class="top" href="#top">⬆</a>
+
 <a class="ig" href="https://lihi2.cc/b4tEh">IG客服</a>
 <a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
 
 <script>
+
+/* ---------- 原本功能完全不動 ---------- */
 
 const games=[
 
@@ -343,7 +377,7 @@ priceArea.innerHTML+=priceHTML
 
 })
 
-/* 停留秒數 */
+/* ---------- 停留秒數 ---------- */
 
 let seconds=0
 setInterval(()=>{
@@ -351,7 +385,7 @@ seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
 },1000)
 
-/* 搜尋 */
+/* ---------- 搜尋 ---------- */
 
 const search=document.getElementById("search")
 const noResult=document.getElementById("noResult")
@@ -380,7 +414,7 @@ noResult.style.display=found?"none":"block"
 
 })
 
-/* 點擊卡片 */
+/* ---------- 卡片點擊 ---------- */
 
 document.addEventListener("click",function(e){
 
@@ -400,9 +434,153 @@ prices.forEach(p=>p.style.display="none")
 
 prices[index].style.display="block"
 
+prices[index].scrollIntoView({behavior:"smooth"})
+
 }
 
 })
+
+/* ---------- LINE 訂單 ---------- */
+
+document.addEventListener("click",function(e){
+
+if(e.target.closest(".price")){
+
+let item=e.target.closest(".price")
+
+let game=item.closest(".prices").querySelector("h3").innerText
+let itemName=item.children[0].innerText
+let price=item.children[1].innerText
+
+let text=`我要儲值\n遊戲:${game}\n面額:${itemName}\n價格:${price}`
+
+let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
+
+window.open(url)
+
+}
+
+})
+
+/* ---------- 星空 + 煙火 + 流星 ---------- */
+
+const canvas=document.getElementById("bg")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let stars=[]
+let fireworks=[]
+let meteors=[]
+
+for(let i=0;i<120;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+alpha:Math.random()
+})
+}
+
+function createFirework(x,y){
+
+for(let i=0;i<40;i++){
+fireworks.push({
+x:x,
+y:y,
+dx:(Math.random()-0.5)*6,
+dy:(Math.random()-0.5)*6,
+life:80,
+color:`hsl(${Math.random()*360},100%,60%)`
+})
+}
+
+}
+
+setInterval(()=>{
+createFirework(Math.random()*canvas.width,Math.random()*canvas.height/2)
+},1800)
+
+canvas.addEventListener("click",e=>{
+createFirework(e.clientX,e.clientY)
+})
+
+function createMeteor(){
+meteors.push({
+x:Math.random()*canvas.width,
+y:-20,
+dx:4,
+dy:4,
+life:80
+})
+}
+
+setInterval(createMeteor,3000)
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+/* 星星 */
+
+stars.forEach(s=>{
+
+s.alpha+=(Math.random()-0.5)*0.05
+if(s.alpha<0.1)s.alpha=0.1
+if(s.alpha>1)s.alpha=1
+
+ctx.beginPath()
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
+ctx.fillStyle=`rgba(255,255,255,${s.alpha})`
+ctx.fill()
+
+})
+
+/* 煙火 */
+
+fireworks.forEach((p,i)=>{
+
+p.x+=p.dx
+p.y+=p.dy
+p.life--
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,2,0,Math.PI*2)
+ctx.fillStyle=p.color
+ctx.fill()
+
+if(p.life<=0){
+fireworks.splice(i,1)
+}
+
+})
+
+/* 流星 */
+
+meteors.forEach((m,i)=>{
+
+m.x+=m.dx
+m.y+=m.dy
+m.life--
+
+ctx.beginPath()
+ctx.moveTo(m.x,m.y)
+ctx.lineTo(m.x-20,m.y-20)
+ctx.strokeStyle="white"
+ctx.stroke()
+
+if(m.life<=0){
+meteors.splice(i,1)
+}
+
+})
+
+requestAnimationFrame(animate)
+
+}
+
+animate()
 
 </script>
 
