@@ -17,6 +17,18 @@ color:white;
 text-align:center;
 }
 
+/* 煙火背景 */
+
+#fireworks{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+pointer-events:none;
+}
+
 header{padding:40px 20px;}
 
 h1{margin:0;font-size:28px;}
@@ -231,6 +243,8 @@ animation:marquee 16s linear infinite;
 
 <body>
 
+<canvas id="fireworks"></canvas>
+
 <a id="top"></a>
 
 <div class="marquee">
@@ -283,170 +297,65 @@ animation:marquee 16s linear infinite;
 
 <script>
 
-const games = [
+/* 煙火動畫 */
 
-{
-name:"原神",
-img:"https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg",
-hot:true,
-prices:[
-["60創世結晶","$30"],
-["300創世結晶","$140"],
-["980創世結晶","$400"]
-]
-},
+const canvas = document.getElementById("fireworks")
+const ctx = canvas.getContext("2d")
 
-{
-name:"崩壞星穹鐵道",
-img:"https://upload.wikimedia.org/wikipedia/zh/1/11/Honkai%EF%BC%9AStar_Rail%E5%B4%A9%E5%A3%9E%EF%BC%9A%E6%98%9F%E7%A9%B9%E9%90%B5%E9%81%93.png",
-hot:true,
-prices:[
-["60古老夢華","$30"],
-["300古老夢華","$140"]
-]
-},
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
-{
-name:"APEX",
-img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg",
-prices:[
-["1000金幣","$220"],
-["2150金幣","$420"]
-]
-},
+let particles=[]
 
-{
-name:"LOL",
-img:"https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg",
-prices:[
-["375聯盟幣","$150"],
-["610聯盟幣","$230"]
-]
-},
+function firework(){
 
-{
-name:"傳說對決",
-img:"https://play-lh.googleusercontent.com/gEgKefzTO44lFUTsxyIqm0HPmFxNX4oxKpNeeklKNCOa9J6f9o4p8oBw4Oc-lYoRvO5-0svcu1uqBlbkpK_Q",
-hot:true,
-prices:[
-["72點卷","$50"],
-["145點卷","$97"],
-["364點卷","$240"]
-]
+let x=Math.random()*canvas.width
+let y=Math.random()*canvas.height/2
+
+for(let i=0;i<30;i++){
+
+particles.push({
+x:x,
+y:y,
+dx:(Math.random()-0.5)*6,
+dy:(Math.random()-0.5)*6,
+life:60,
+color:`hsl(${Math.random()*360},100%,60%)`
+})
+
 }
 
-]
+}
 
-const gameArea=document.getElementById("games")
-const priceArea=document.getElementById("pricesArea")
+function update(){
 
-games.forEach((g,i)=>{
+ctx.clearRect(0,0,canvas.width,canvas.height)
 
-gameArea.innerHTML+=`
-<div class="card" data-name="${g.name}">
-${g.hot ? '<div class="hot">HOT</div>' : ''}
-<img src="${g.img}">
-<div class="card-title">${g.name}</div>
-</div>
-`
+particles.forEach((p,i)=>{
 
-let priceHTML=`<div class="prices" id="price${i}">
-<h3>${g.name}</h3>`
+p.x+=p.dx
+p.y+=p.dy
+p.life--
 
-g.prices.forEach(p=>{
-priceHTML+=`<div class="price"><span>${p[0]}</span><span>${p[1]}</span></div>`
-})
+ctx.beginPath()
+ctx.arc(p.x,p.y,2,0,Math.PI*2)
+ctx.fillStyle=p.color
+ctx.fill()
 
-priceHTML+=`</div>`
-
-priceArea.innerHTML+=priceHTML
-
-})
-
-setTimeout(()=>{
-document.getElementById("bubble").style.display="none"
-},5000)
-
-let seconds=0
-setInterval(()=>{
-seconds++
-document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
-},1000)
-
-const search=document.getElementById("search")
-const noResult=document.getElementById("noResult")
-
-search.addEventListener("input",function(){
-
-let text=this.value.toLowerCase()
-let found=false
-
-document.querySelectorAll(".prices").forEach(p=>p.style.display="none")
-
-document.querySelectorAll(".card").forEach(card=>{
-
-let name=card.dataset.name.toLowerCase()
-
-if(name.includes(text)||text===""){
-card.style.display="block"
-found=true
-}else{
-card.style.display="none"
+if(p.life<=0){
+particles.splice(i,1)
 }
 
 })
 
-noResult.style.display = found ? "none" : "block"
-
-})
-
-document.addEventListener("click",function(e){
-
-if(e.target.closest(".card")){
-
-let cards=document.querySelectorAll(".card")
-let prices=document.querySelectorAll(".prices")
-
-cards.forEach(c=>c.classList.remove("active"))
-
-let card=e.target.closest(".card")
-card.classList.add("active")
-
-let index=[...cards].indexOf(card)
-
-prices.forEach(p=>p.style.display="none")
-
-prices[index].style.display="block"
-
-prices[index].scrollIntoView({behavior:"smooth"})
+requestAnimationFrame(update)
 
 }
 
-})
+setInterval(firework,1200)
 
-document.addEventListener("click",function(e){
+update()
 
-if(e.target.closest(".price")){
+/* 原本網站功能 */
 
-let item=e.target.closest(".price")
-
-let game=item.closest(".prices").querySelector("h3").innerText
-let itemName=item.children[0].innerText
-let price=item.children[1].innerText
-
-let text=`我要儲值\n遊戲:${game}\n面額:${itemName}\n價格:${price}`
-
-let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
-
-window.open(url)
-
-alert("已幫你填好訂單內容")
-
-}
-
-})
-
-</script>
-
-</body>
-</html>
+const games=[ ... ]
