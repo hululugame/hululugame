@@ -3,6 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,6 +27,8 @@ color:white;
 text-align:center;
 padding-bottom:260px;
 }
+
+/* 星空煙火背景 */
 
 #bg{
 position:fixed;
@@ -80,11 +83,18 @@ color:black;
 box-shadow:0 8px 20px rgba(0,0,0,0.25);
 transition:0.3s;
 position:relative;
-will-change:transform;
+
+animation:cardSlide .6s ease forwards;
 }
 
 .card:hover{
 transform:scale(1.06);
+box-shadow:0 0 25px rgba(37,99,235,0.8);
+}
+
+.card.active{
+outline:3px solid #3b82f6;
+box-shadow:0 0 30px rgba(59,130,246,0.9);
 }
 
 .card img{
@@ -112,8 +122,23 @@ border-radius:8px;
 top:8px;
 left:8px;
 font-weight:bold;
+animation:hotGlow 1.5s infinite;
 }
-
+@keyframes hotGlow{
+0%{box-shadow:0 0 5px rgba(239,68,68,0.4);}
+50%{box-shadow:0 0 15px rgba(239,68,68,1);}
+100%{box-shadow:0 0 5px rgba(239,68,68,0.4);}
+}
+@keyframes cardSlide{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
 .prices{
 display:none;
 background:white;
@@ -151,6 +176,71 @@ border-radius:10px;
 font-size:14px;
 }
 
+.line{
+position:fixed;
+bottom:120px;
+right:20px;
+background:#06c755;
+padding:20px 34px;
+border-radius:50px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+font-size:18px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+animation:pulse 2s infinite;
+width:130px;
+text-align:center;
+}
+
+.ig{
+position:fixed;
+bottom:210px;
+right:20px;
+background:#e1306c;
+padding:20px 34px;
+border-radius:50px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+font-size:18px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+animation:pulse 2s infinite;
+width:130px;
+text-align:center;
+}
+
+.bubble{
+position:fixed;
+bottom:290px;
+right:20px;
+background:white;
+color:black;
+padding:12px 16px;
+border-radius:12px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+font-size:14px;
+max-width:200px;
+}
+
+.top{
+position:fixed;
+bottom:220px;
+right:20px;
+background:#3b82f6;
+color:white;
+padding:12px 16px;
+border-radius:50px;
+text-decoration:none;
+font-size:14px;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.08)}
+100%{transform:scale(1)}
+}
+
 .marquee{
 width:100%;
 background:linear-gradient(90deg,#2563eb,#4f46e5);
@@ -177,6 +267,34 @@ animation:marquee 16s linear infinite;
 .counter{margin-top:20px;font-size:13px;color:#94a3b8;}
 .no-result{margin-top:20px;color:#94a3b8;display:none;}
 
+/* 卡片滑入動畫 */
+@keyframes cardFade{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* HOT卡片發光 */
+@keyframes hotGlow{
+0%{box-shadow:0 0 10px rgba(239,68,68,0.3);}
+50%{box-shadow:0 0 25px rgba(239,68,68,0.8);}
+100%{box-shadow:0 0 10px rgba(239,68,68,0.3);}
+}
+.site-logo{
+position:fixed;
+bottom:20px;
+left:15px;
+width:130px;
+opacity:0.9;
+z-index:5;
+filter: drop-shadow(0 0 10px rgba(255,200,0,0.8));
+}
+
 .bubble{
 position:fixed;
 right:20px;
@@ -190,6 +308,8 @@ font-size:14px;
 max-width:200px;
 z-index:999;
 }
+
+/* 客服按鈕 */
 
 .support{
 position:fixed;
@@ -210,6 +330,22 @@ font-size:28px;
 color:white;
 cursor:pointer;
 box-shadow:0 10px 20px rgba(0,0,0,0.3);
+animation: glow 2s infinite, jump 5s infinite;
+}
+
+@keyframes glow{
+0%{box-shadow:0 0 0 rgba(37,99,235,0.4);}
+50%{box-shadow:0 0 20px rgba(37,99,235,0.9);}
+100%{box-shadow:0 0 0 rgba(37,99,235,0.4);}
+}
+
+@keyframes jump{
+0%{transform:translateY(0);}
+3%{transform:translateY(-8px);}
+6%{transform:translateY(0);}
+9%{transform:translateY(-4px);}
+12%{transform:translateY(0);}
+100%{transform:translateY(0);}
 }
 
 .support-menu{
@@ -227,10 +363,15 @@ text-decoration:none;
 font-weight:bold;
 }
 
-.support-line{background:#22c55e;}
-.support-ig{background:#ec4899;}
+.support-line{
+background:#22c55e;
+}
 
+.support-ig{
+background:#ec4899;
+}
 </style>
+
 </head>
 
 <body>
@@ -274,6 +415,7 @@ font-weight:bold;
 </div>
 
 <div class="counter" id="stayTime"></div>
+<div class="counter" id="nowTime"></div>
 
 </div>
 
@@ -284,17 +426,16 @@ font-weight:bold;
 </div>
 
 <div class="support">
-<div class="support-btn" onclick="toggleSupport()">💬</div>
 
-<div class="support-menu" id="supportMenu">
-<a href="https://line.me/ti/p/pf0z..." target="_blank" class="support-line">LINE客服</a>
-<a href="https://lihi2.cc/b4tEh" target="_blank" class="support-ig">IG客服</a>
-</div>
+  <div class="support-menu" id="supportMenu">
+    <a href="https://line.me/ti/p/pf0z..." target="_blank" class="support-line">LINE客服</a>
+    <a href="https://lihi2.cc/b4tEh" target="_blank" class="support-ig">IG客服</a>
+  </div>
 </div>
 
 <script>
 
-/* 遊戲資料 */
+/* ---------- 原本功能完全不動 ---------- */
 
 const games=[
 
@@ -358,7 +499,7 @@ games.forEach((g,i)=>{
 gameArea.innerHTML+=`
 <div class="card" data-name="${g.name}">
 ${g.hot?'<div class="hot">HOT</div>':''}
-<img loading="lazy" src="${g.img}">
+<img src="${g.img}">
 <div class="card-title">${g.name}</div>
 </div>
 `
@@ -376,7 +517,7 @@ priceArea.innerHTML+=priceHTML
 
 })
 
-/* 停留秒數 */
+/* ---------- 停留秒數 ---------- */
 
 let seconds=0
 setInterval(()=>{
@@ -384,7 +525,7 @@ seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
 },1000)
 
-/* 搜尋 */
+/* ---------- 搜尋 ---------- */
 
 const search=document.getElementById("search")
 const noResult=document.getElementById("noResult")
@@ -413,7 +554,7 @@ noResult.style.display=found?"none":"block"
 
 })
 
-/* 卡片點擊 */
+/* ---------- 卡片點擊 ---------- */
 
 document.addEventListener("click",function(e){
 
@@ -433,13 +574,13 @@ prices.forEach(p=>p.style.display="none")
 
 prices[index].style.display="block"
 
-prices[index].scrollIntoView({behavior:"instant"})
+prices[index].scrollIntoView({behavior:"smooth"})
 
 }
 
 })
 
-/* LINE訂單 */
+/* ---------- LINE 訂單 ---------- */
 
 document.addEventListener("click",function(e){
 
@@ -461,40 +602,117 @@ window.open(url)
 
 })
 
-/* 星空優化 */
+/* ---------- 星空 + 煙火 + 流星 ---------- */
 
 const canvas=document.getElementById("bg")
 const ctx=canvas.getContext("2d")
 
-const DPR=Math.min(window.devicePixelRatio,1.5)
-
-canvas.width=window.innerWidth*DPR
-canvas.height=window.innerHeight*DPR
-ctx.scale(DPR,DPR)
-
-let starCount=Math.min(120,Math.floor(window.innerWidth/8))
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
 
 let stars=[]
+let fireworks=[]
+let meteors=[]
 
-for(let i=0;i<starCount;i++){
+for(let i=0;i<120;i++){
 stars.push({
-x:Math.random()*window.innerWidth,
-y:Math.random()*window.innerHeight,
-r:Math.random()*1.8,
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
 alpha:Math.random()
 })
 }
+
+function createFirework(x,y){
+
+for(let i=0;i<40;i++){
+fireworks.push({
+x:x,
+y:y,
+dx:(Math.random()-0.5)*6,
+dy:(Math.random()-0.5)*6,
+life:80,
+color:`hsl(${Math.random()*360},100%,60%)`
+})
+}
+
+}
+
+setInterval(()=>{
+createFirework(Math.random()*canvas.width,Math.random()*canvas.height/2)
+},1800)
+
+canvas.addEventListener("click",e=>{
+createFirework(e.clientX,e.clientY)
+})
+
+function createMeteor(){
+meteors.push({
+x:Math.random()*canvas.width,
+y:-20,
+dx:4,
+dy:4,
+life:80
+})
+}
+
+setInterval(createMeteor,3000)
 
 function animate(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
+/* 星星 */
+
 stars.forEach(s=>{
+
+s.alpha+=(Math.random()-0.5)*0.05
+if(s.alpha<0.1)s.alpha=0.1
+if(s.alpha>1)s.alpha=1
 
 ctx.beginPath()
 ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
 ctx.fillStyle=`rgba(255,255,255,${s.alpha})`
 ctx.fill()
+
+})
+
+/* 煙火 */
+
+fireworks.forEach((p,i)=>{
+
+p.x+=p.dx
+p.y+=p.dy
+p.life--
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,2,0,Math.PI*2)
+ctx.fillStyle=p.color
+ctx.fill()
+
+if(p.life<=0){
+fireworks.splice(i,1)
+}
+
+})
+
+/* 流星 */
+
+meteors.forEach((m,i)=>{
+
+m.x+=m.dx
+m.y+=m.dy
+m.life--
+
+ctx.beginPath()
+ctx.moveTo(m.x,m.y)
+ctx.lineTo(m.x-20,m.y-20)
+ctx.strokeStyle="white"
+ctx.stroke()
+
+if(m.life<=0){
+meteors.splice(i,1)
+}
 
 })
 
@@ -504,30 +722,60 @@ requestAnimationFrame(animate)
 
 animate()
 
-function toggleSupport(){
+/* ---------- 現在時間 ---------- */
 
-const menu=document.getElementById("supportMenu")
-const bubble=document.getElementById("bubble")
+function updateTime(){
 
-if(menu.style.display==="flex"){
-menu.style.display="none"
-bubble.style.bottom="90px"
-}else{
-menu.style.display="flex"
-bubble.style.bottom="200px"
+const now = new Date()
+
+let h = now.getHours().toString().padStart(2,"0")
+let m = now.getMinutes().toString().padStart(2,"0")
+let s = now.getSeconds().toString().padStart(2,"0")
+
+document.getElementById("nowTime").innerText =
+"現在時間："+h+":"+m+":"+s
+
 }
 
+setInterval(updateTime,1000)
+updateTime()
+</script>
+<div class="support">
+  <div class="support-btn" onclick="toggleSupport()">💬</div>
+
+  <div class="support-menu" id="supportMenu">
+    <a href="https://line.me/ti/p/pf0z..." target="_blank" class="support-line">LINE客服</a>
+    <a href="https://lihi2.cc/b4tEh" target="_blank" class="support-ig">IG客服</a>
+  </div>
+</div>
+
+<script>
+function toggleSupport(){
+
+const menu = document.getElementById("supportMenu");
+const bubble = document.getElementById("bubble");
+
+if(menu.style.display === "flex"){
+menu.style.display = "none";
+bubble.style.bottom = "90px";
+}else{
+menu.style.display = "flex";
+bubble.style.bottom = "200px";
+}
 }
 
 setTimeout(()=>{
-const bubble=document.getElementById("bubble")
-bubble.style.opacity="0"
-setTimeout(()=>bubble.style.display="none",500)
-},5000)
+const bubble=document.getElementById("bubble");
+if(bubble){
+bubble.style.opacity="0";
+setTimeout(()=>{
+bubble.style.display="none";
+},500);
+}
+},5000);
 
 </script>
-
 <img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo">
-
+    
 </body>
 </html>
