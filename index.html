@@ -103,22 +103,25 @@ margin-top:20px;
 color:#94a3b8;
 }
 
-/* 跑馬燈 */
+/* 升級版跑馬燈 */
 
 .marquee{
 width:100%;
-background:#2563eb;
+background:linear-gradient(90deg,#2563eb,#4f46e5);
 color:white;
-padding:10px 0;
+padding:14px 0;
 overflow:hidden;
 white-space:nowrap;
-font-size:14px;
+font-size:16px;
+font-weight:bold;
+letter-spacing:1px;
+box-shadow:0 3px 10px rgba(0,0,0,0.3);
 }
 
 .marquee span{
 display:inline-block;
 padding-left:100%;
-animation:marquee 18s linear infinite;
+animation:marquee 16s linear infinite;
 }
 
 @keyframes marquee{
@@ -133,14 +136,11 @@ animation:marquee 18s linear infinite;
 
 <body>
 
-<!-- 跑馬燈公告 -->
-
 <div class="marquee">
 <span>
 🔥公告：代儲皆為人工儲值｜請準備遊戲UID｜價格每日浮動｜LINE客服24小時在線🔥
 </span>
 </div>
-
 
 <header>
 
@@ -255,8 +255,6 @@ animation:marquee 18s linear infinite;
 const cards=document.querySelectorAll(".card")
 const prices=document.querySelectorAll(".prices")
 
-// 點遊戲顯示價目
-
 cards.forEach((card,i)=>{
 
 card.onclick=function(){
@@ -268,9 +266,6 @@ prices[i].style.display="block"
 }
 
 })
-
-
-// 搜尋
 
 const search=document.getElementById("search")
 
