@@ -178,27 +178,6 @@ box-shadow:0 0 10px rgba(37,99,235,0.4);
 color:#2563eb;
 }
 
-/* 點擊波紋 */
-
-.price::after{
-content:"";
-position:absolute;
-width:0;
-height:0;
-background:rgba(37,99,235,0.3);
-border-radius:50%;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-transition:0.4s;
-}
-
-.price:active::after{
-width:300px;
-height:300px;
-opacity:0;
-}
-
 /* 信任區塊 */
 
 .trust{
@@ -292,6 +271,26 @@ display:none;
 margin-top:20px;
 color:#94a3b8;
 font-size:14px;
+}
+
+/* 訪問計數 */
+
+.counter{
+margin-top:20px;
+font-size:13px;
+color:#94a3b8;
+}
+
+/* 在線提示 */
+
+.online{
+position:fixed;
+bottom:70px;
+right:20px;
+font-size:12px;
+background:#16a34a;
+padding:6px 10px;
+border-radius:20px;
 }
 
 </style>
@@ -401,14 +400,30 @@ font-size:14px;
 <div>🕒 24小時服務</div>
 </div>
 
+<div class="counter" id="counter"></div>
+
 </div>
 
 
 <a class="top" href="#top">⬆</a>
+<div class="online">客服在線</div>
 <a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
 
 
 <script>
+
+let count=localStorage.getItem("visit")
+
+if(!count){
+count=1
+}else{
+count=parseInt(count)+1
+}
+
+localStorage.setItem("visit",count)
+
+document.getElementById("counter").innerText="本站訪問次數："+count
+
 
 const cards=document.querySelectorAll(".card")
 const prices=document.querySelectorAll(".prices")
@@ -473,6 +488,8 @@ let text=`我要儲值\n遊戲:${game}\n面額:${itemName}\n價格:${price}`
 let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
 
 window.open(url)
+
+alert("已幫你填好訂單內容")
 
 }
 
