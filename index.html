@@ -33,8 +33,6 @@ color:#94a3b8;
 margin-top:6px;
 }
 
-/* 搜尋框優化 */
-
 input{
 width:85%;
 padding:14px;
@@ -57,16 +55,12 @@ margin:auto;
 padding:20px;
 }
 
-/* 新增熱門標題 */
-
 .section-title{
 margin-top:10px;
 margin-bottom:20px;
 font-size:18px;
 color:#cbd5f5;
 }
-
-/* 遊戲卡片 */
 
 .grid{
 display:grid;
@@ -120,17 +114,9 @@ font-weight:bold;
 }
 
 @keyframes fadeIn{
-from{
-opacity:0;
-transform:translateY(10px);
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
 }
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* 價目表 */
 
 .prices{
 display:none;
@@ -144,14 +130,8 @@ animation:fadePrice 0.4s ease;
 }
 
 @keyframes fadePrice{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
 }
 
 .price{
@@ -220,13 +200,28 @@ text-decoration:none;
 font-weight:bold;
 font-size:18px;
 box-shadow:0 6px 15px rgba(0,0,0,0.3);
+animation:pulse 2s infinite;
 }
 
-/* 返回頂部 */
+/* 客服提示泡泡 */
+
+.bubble{
+position:fixed;
+bottom:160px;
+right:20px;
+background:white;
+color:black;
+padding:12px 16px;
+border-radius:12px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+font-size:14px;
+max-width:200px;
+animation:fadeIn 0.5s;
+}
 
 .top{
 position:fixed;
-bottom:160px;
+bottom:220px;
 right:20px;
 background:#3b82f6;
 color:white;
@@ -242,8 +237,6 @@ box-shadow:0 5px 12px rgba(0,0,0,0.3);
 50%{transform:scale(1.08)}
 100%{transform:scale(1)}
 }
-
-/* 跑馬燈 */
 
 .marquee{
 width:100%;
@@ -276,6 +269,12 @@ color:#94a3b8;
 margin-top:20px;
 font-size:13px;
 color:#94a3b8;
+}
+
+.no-result{
+margin-top:20px;
+color:#94a3b8;
+display:none;
 }
 
 </style>
@@ -331,6 +330,8 @@ color:#94a3b8;
 
 </div>
 
+<div id="noResult" class="no-result">查無此遊戲</div>
+
 <div class="prices" id="price0">
 <h3>原神</h3>
 <div class="price"><span>60晶石</span><span>$30</span></div>
@@ -371,13 +372,22 @@ color:#94a3b8;
 
 </div>
 
+<div class="bubble" id="bubble">
+歡迎光臨😀<br>
+需要儲值點擊連結下單🌹
+</div>
+
 <a class="top" href="#top">⬆</a>
 
-<a class="ig" href="https://lihi2.cc/b4tEh">IG客服</a>
+<a class="ig" href="https://instagram.com/YOURIG">IG客服</a>
 
 <a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
 
 <script>
+
+setTimeout(()=>{
+document.getElementById("bubble").style.display="none"
+},5000)
 
 let seconds=0
 setInterval(()=>{
@@ -389,7 +399,6 @@ const cards=document.querySelectorAll(".card")
 const prices=document.querySelectorAll(".prices")
 
 cards.forEach((card,i)=>{
-
 card.onclick=function(){
 
 cards.forEach(c=>c.classList.remove("active"))
@@ -399,12 +408,8 @@ prices.forEach(p=>p.style.display="none")
 
 prices[i].style.display="block"
 
-prices[i].scrollIntoView({
-behavior:"smooth"
-})
-
+prices[i].scrollIntoView({behavior:"smooth"})
 }
-
 })
 
 const search=document.getElementById("search")
@@ -429,6 +434,8 @@ card.style.display="none"
 }
 
 })
+
+noResult.style.display = found ? "none" : "block"
 
 })
 
