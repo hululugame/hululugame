@@ -7,6 +7,10 @@
 
 <style>
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 background:#0f172a;
 font-family:Arial;
@@ -74,6 +78,11 @@ position:relative;
 animation:fadeIn 0.8s ease;
 }
 
+.grid .card:nth-child(1){animation-delay:0.1s}
+.grid .card:nth-child(2){animation-delay:0.2s}
+.grid .card:nth-child(3){animation-delay:0.3s}
+.grid .card:nth-child(4){animation-delay:0.4s}
+
 @keyframes fadeIn{
 from{
 opacity:0;
@@ -87,7 +96,7 @@ transform:translateY(0);
 
 .card:hover{
 transform:scale(1.05);
-box-shadow:0 0 20px rgba(37,99,235,0.6);
+box-shadow:0 0 25px rgba(37,99,235,0.7);
 }
 
 /* 點擊選中 */
@@ -169,6 +178,27 @@ box-shadow:0 0 10px rgba(37,99,235,0.4);
 color:#2563eb;
 }
 
+/* 點擊波紋 */
+
+.price::after{
+content:"";
+position:absolute;
+width:0;
+height:0;
+background:rgba(37,99,235,0.3);
+border-radius:50%;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+transition:0.4s;
+}
+
+.price:active::after{
+width:300px;
+height:300px;
+opacity:0;
+}
+
 /* 信任區塊 */
 
 .trust{
@@ -205,6 +235,21 @@ animation:pulse 2s infinite;
 0%{transform:scale(1)}
 50%{transform:scale(1.08)}
 100%{transform:scale(1)}
+}
+
+/* 回到頂部 */
+
+.top{
+position:fixed;
+bottom:90px;
+right:20px;
+background:#3b82f6;
+color:white;
+padding:12px 16px;
+border-radius:50px;
+text-decoration:none;
+font-size:14px;
+box-shadow:0 5px 12px rgba(0,0,0,0.3);
 }
 
 /* 公告 */
@@ -255,6 +300,8 @@ font-size:14px;
 
 
 <body>
+
+<a id="top"></a>
 
 <div class="marquee">
 <span>
@@ -357,6 +404,7 @@ font-size:14px;
 </div>
 
 
+<a class="top" href="#top">⬆</a>
 <a class="line" href="https://line.me/ti/p/YOURID">LINE客服</a>
 
 
