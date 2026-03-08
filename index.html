@@ -298,7 +298,7 @@ filter: drop-shadow(0 0 10px rgba(255,200,0,0.8));
 .bubble{
 position:fixed;
 right:20px;
-bottom:230px;
+bottom:90px;
 background:white;
 color:black;
 padding:12px 16px;
@@ -717,13 +717,18 @@ animate()
 
 <script>
 function toggleSupport(){
+
 const menu = document.getElementById("supportMenu");
+const bubble = document.getElementById("bubble");
 
 if(menu.style.display === "flex"){
 menu.style.display = "none";
+bubble.style.bottom = "90px";
 }else{
 menu.style.display = "flex";
+bubble.style.bottom = "200px";
 }
+
 }
 </script>
 <img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo">
