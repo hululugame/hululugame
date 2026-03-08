@@ -1,40 +1,379 @@
----------- */
+<!DOCTYPE html>
+<html>
+<head>
 
-/* ---------- 客服按鈕 ---------- */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-const supportBtn=document.createElement("div")
-supportBtn.className="support-btn"
-supportBtn.innerHTML="💬"
-document.querySelector(".support").prepend(supportBtn)
+<title>呼嚕嚕手遊代儲</title>
 
-supportBtn.addEventListener("click",function(){
+<link rel="icon" href="91AB05CF-FDBC-4A96-B3CD-757F48DA1068.png">
 
-const menu=document.getElementById("supportMenu")
+<style>
 
-if(menu.style.display==="flex"){
-menu.style.display="none"
-}else{
-menu.style.display="flex"
+body{
+background:#0f172a;
+font-family:Arial;
+margin:0;
+color:white;
+text-align:center;
+padding-bottom:200px;
 }
+
+header{
+padding:40px 20px;
+}
+
+h1{
+margin:0;
+font-size:28px;
+}
+
+.subtitle{
+color:#94a3b8;
+margin-top:6px;
+}
+
+input{
+width:85%;
+padding:14px;
+border-radius:12px;
+border:none;
+margin-top:20px;
+font-size:16px;
+}
+
+.container{
+max-width:750px;
+margin:auto;
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.card{
+background:white;
+border-radius:18px;
+overflow:hidden;
+cursor:pointer;
+color:black;
+box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+
+.card img{
+width:100%;
+height:140px;
+object-fit:cover;
+}
+
+.card-title{
+padding:12px;
+font-weight:bold;
+}
+
+.hot{
+position:absolute;
+background:#ef4444;
+color:white;
+font-size:12px;
+padding:4px 8px;
+border-radius:8px;
+top:8px;
+left:8px;
+}
+
+.prices{
+display:none;
+background:white;
+color:black;
+border-radius:14px;
+margin-top:20px;
+padding:20px;
+}
+
+.price{
+display:flex;
+justify-content:space-between;
+background:#f1f5f9;
+padding:14px;
+margin:8px 0;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.price span:last-child{
+color:#2563eb;
+}
+
+.trust{
+margin-top:30px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.trust div{
+background:#1e293b;
+padding:14px;
+border-radius:10px;
+}
+
+.counter{
+margin-top:20px;
+font-size:13px;
+color:#94a3b8;
+}
+
+.marquee{
+width:100%;
+background:linear-gradient(90deg,#2563eb,#4f46e5);
+color:white;
+padding:12px 0;
+overflow:hidden;
+white-space:nowrap;
+font-size:15px;
+font-weight:bold;
+}
+
+.marquee span{
+display:inline-block;
+padding-left:100%;
+animation:marquee 16s linear infinite;
+}
+
+@keyframes marquee{
+0%{transform:translateX(0)}
+100%{transform:translateX(-100%)}
+}
+
+.bubble{
+position:fixed;
+right:20px;
+bottom:90px;
+background:white;
+color:black;
+padding:12px 16px;
+border-radius:12px;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+font-size:14px;
+max-width:200px;
+}
+
+.support{
+position:fixed;
+right:20px;
+bottom:30px;
+}
+
+.support-btn{
+width:60px;
+height:60px;
+background:#2563eb;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+color:white;
+cursor:pointer;
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+.support-menu{
+display:none;
+flex-direction:column;
+gap:10px;
+margin-bottom:70px;
+}
+
+.support-menu a{
+padding:12px 20px;
+border-radius:25px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+.support-line{
+background:#22c55e;
+}
+
+.support-ig{
+background:#ec4899;
+}
+
+#bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="marquee">
+<span>
+🔥公告：代儲皆為人工儲值｜為了加快訂單效率務必確定好帳號密碼｜價格每日浮動｜有任何問題右下連結點擊詢問🔥
+</span>
+</div>
+
+<header>
+
+<h1>🌟 呼嚕嚕手遊代儲 🌟</h1>
+<div class="subtitle">安全 · 快速 · 便宜</div>
+
+<input id="search" placeholder="搜尋遊戲">
+
+</header>
+
+<div class="container">
+
+<div class="grid" id="games"></div>
+
+<div id="pricesArea"></div>
+
+<div class="trust">
+<div>⭕ 正規管道儲值</div>
+<div>⚡ 人工快速儲值</div>
+<div>🔥 永久售後服務</div>
+<div>😎 零鎖率零封號</div>
+</div>
+
+<div class="counter" id="stayTime"></div>
+
+</div>
+
+<div class="bubble" id="bubble">
+歡迎光臨🙂<br>
+需要儲值<br>
+點擊下方客服🌹
+</div>
+
+<div class="support">
+
+<div class="support-btn" onclick="toggleSupport()">💬</div>
+
+<div class="support-menu" id="supportMenu">
+<a href="https://line.me/ti/p/pf0z..." target="_blank" class="support-line">LINE客服</a>
+<a href="https://lihi2.cc/b4tEh" target="_blank" class="support-ig">IG客服</a>
+</div>
+
+</div>
+
+<script>
+
+/* 遊戲資料 */
+
+const games=[
+
+{
+name:"原神",
+img:"https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg",
+prices:[
+["60創世結晶","$30"],
+["300創世結晶","$140"]
+]
+},
+
+{
+name:"傳說對決",
+img:"https://play-lh.googleusercontent.com/gEgKefzTO44lFUTsxyIqm0HPmFxNX4oxKpNeeklKNCOa9J6f9o4p8oBw4Oc-lYoRvO5-0svcu1uqBlbkpK_Q",
+prices:[
+["72點卷","$50"],
+["145點卷","$97"]
+]
+}
+
+]
+
+const gameArea=document.getElementById("games")
+const priceArea=document.getElementById("pricesArea")
+
+games.forEach((g,i)=>{
+
+gameArea.innerHTML+=`
+<div class="card" onclick="showPrice(${i})">
+<img src="${g.img}">
+<div class="card-title">${g.name}</div>
+</div>
+`
+
+let html=`<div class="prices" id="price${i}">
+<h3>${g.name}</h3>`
+
+g.prices.forEach(p=>{
+html+=`<div class="price" onclick="order('${g.name}','${p[0]}','${p[1]}')"><span>${p[0]}</span><span>${p[1]}</span></div>`
+})
+
+html+=`</div>`
+
+priceArea.innerHTML+=html
 
 })
 
-/* ---------- bubble 自動消失 ---------- */
+function showPrice(i){
+
+document.querySelectorAll(".prices").forEach(p=>{
+p.style.display="none"
+})
+
+document.getElementById("price"+i).style.display="block"
+
+}
+
+function order(game,item,price){
+
+let text=`我要儲值\n遊戲:${game}\n面額:${item}\n價格:${price}`
+
+let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
+
+window.open(url)
+
+}
+
+/* 停留秒數 */
+
+let seconds=0
+
+setInterval(()=>{
+
+seconds++
+
+document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
+
+},1000)
+
+/* 客服 */
+
+function toggleSupport(){
+
+const menu=document.getElementById("supportMenu")
+
+menu.style.display=menu.style.display==="flex"?"none":"flex"
+
+}
+
+/* bubble 消失 */
 
 setTimeout(()=>{
 
-const bubble=document.getElementById("bubble")
-
-bubble.style.opacity="0"
-bubble.style.transition="0.5s"
-
-setTimeout(()=>{
-bubble.style.display="none"
-},500)
+document.getElementById("bubble").style.display="none"
 
 },6000)
 
-/* ---------- 星空動畫 ---------- */
+/* 星空 */
 
 const canvas=document.getElementById("bg")
 const ctx=canvas.getContext("2d")
@@ -45,12 +384,13 @@ canvas.height=window.innerHeight
 let stars=[]
 
 for(let i=0;i<120;i++){
+
 stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-r:Math.random()*2,
-alpha:Math.random()
+r:Math.random()*2
 })
+
 }
 
 function animate(){
@@ -58,12 +398,10 @@ function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
 stars.forEach(s=>{
-
 ctx.beginPath()
 ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
-ctx.fillStyle="rgba(255,255,255,"+s.alpha+")"
+ctx.fillStyle="white"
 ctx.fill()
-
 })
 
 requestAnimationFrame(animate)
@@ -71,15 +409,6 @@ requestAnimationFrame(animate)
 }
 
 animate()
-
-/* ---------- 視窗改變重新調整 ---------- */
-
-window.addEventListener("resize",function(){
-
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-
-})
 
 </script>
 
