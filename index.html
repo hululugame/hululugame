@@ -274,6 +274,52 @@ width:250px;
 z-index:10;
 filter: drop-shadow(0 0 10px rgba(255,200,0,0.8));
 }
+
+/* 客服按鈕 */
+
+.support{
+position:fixed;
+right:20px;
+bottom:30px;
+z-index:999;
+}
+
+.support-btn{
+width:60px;
+height:60px;
+background:#2563eb;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+color:white;
+cursor:pointer;
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+.support-menu{
+display:none;
+flex-direction:column;
+gap:10px;
+margin-bottom:10px;
+}
+
+.support-menu a{
+padding:12px 20px;
+border-radius:25px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+.support-line{
+background:#22c55e;
+}
+
+.support-ig{
+background:#ec4899;
+}
 </style>
 
 </head>
@@ -322,15 +368,14 @@ filter: drop-shadow(0 0 10px rgba(255,200,0,0.8));
 
 </div>
 
-<div class="bubble" id="bubble">
-歡迎光臨😀<br>
-需要儲值點擊連結下單🌹
+<div class="support">
+  <div class="support-btn" onclick="toggleSupport()">💬</div>
+
+  <div class="support-menu" id="supportMenu">
+    <a href="https://line.me/ti/p/pf0z..." target="_blank" class="support-line">LINE客服</a>
+    <a href="https://lihi2.cc/b4tEh" target="_blank" class="support-ig">IG客服</a>
+  </div>
 </div>
-
-<a class="top" href="#top">⬆</a>
-
-<a class="ig" href="https://lihi2.cc/b4tEh">IG客服</a>
-<a class="line" href="https://line.me/ti/p/pf0zYhi55P">LINE客服</a>
 
 <script>
 
@@ -622,7 +667,26 @@ requestAnimationFrame(animate)
 animate()
 
 </script>
+<div class="support">
+  <div class="support-btn" onclick="toggleSupport()">💬</div>
 
+  <div class="support-menu" id="supportMenu">
+    <a href="https://line.me/ti/p/pf0z..." target="_blank" class="support-line">LINE客服</a>
+    <a href="https://lihi2.cc/b4tEh" target="_blank" class="support-ig">IG客服</a>
+  </div>
+</div>
+
+<script>
+function toggleSupport(){
+const menu = document.getElementById("supportMenu");
+
+if(menu.style.display === "flex"){
+menu.style.display = "none";
+}else{
+menu.style.display = "flex";
+}
+}
+</script>
 <img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo">
     
 </body>
