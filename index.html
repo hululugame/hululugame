@@ -37,6 +37,11 @@ border:none;
 margin-top:20px;
 font-size:16px;
 outline:none;
+transition:0.2s;
+}
+
+input:focus{
+box-shadow:0 0 10px #3b82f6;
 }
 
 /* 容器 */
@@ -85,6 +90,12 @@ transform:scale(1.05);
 box-shadow:0 0 20px rgba(37,99,235,0.6);
 }
 
+/* 點擊選中 */
+
+.card.active{
+outline:3px solid #3b82f6;
+}
+
 .card img{
 width:100%;
 height:120px;
@@ -120,6 +131,18 @@ border-radius:14px;
 margin-top:20px;
 padding:20px;
 box-shadow:0 8px 20px rgba(0,0,0,0.25);
+animation:fadePrice 0.4s ease;
+}
+
+@keyframes fadePrice{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .price{
@@ -172,11 +195,13 @@ color:white;
 text-decoration:none;
 font-weight:bold;
 box-shadow:0 6px 15px rgba(0,0,0,0.3);
-transition:0.2s;
+animation:pulse 2s infinite;
 }
 
-.line:hover{
-transform:scale(1.1);
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.08)}
+100%{transform:scale(1)}
 }
 
 /* 公告 */
@@ -306,15 +331,11 @@ animation:marquee 16s linear infinite;
 </div>
 
 
-<!-- 信任區 -->
-
 <div class="trust">
-
 <div>🔒 官方匯率代儲</div>
 <div>⚡ 人工快速儲值</div>
 <div>💬 LINE即時客服</div>
 <div>🕒 24小時服務</div>
-
 </div>
 
 </div>
@@ -331,6 +352,9 @@ const prices=document.querySelectorAll(".prices")
 cards.forEach((card,i)=>{
 
 card.onclick=function(){
+
+cards.forEach(c=>c.classList.remove("active"))
+card.classList.add("active")
 
 prices.forEach(p=>p.style.display="none")
 
