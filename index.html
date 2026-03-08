@@ -15,6 +15,8 @@ font-family:Arial;
 margin:0;
 color:white;
 text-align:center;
+position:relative;
+z-index:1;
 }
 
 /* 星空煙火背景 */
@@ -25,14 +27,8 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-z-index:-1;
-#bg{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
+z-index:0;
+pointer-events:none;
 }
 
 header{padding:40px 20px;}
@@ -301,13 +297,11 @@ animation:marquee 16s linear infinite;
 
 <script>
 
-/* ---------- 原本功能完全不動 ---------- */
-
 const games=[
 
 {
 name:"原神",
-img:"https://upload.wikimedia.org/wikipedia/en/5/5d/Genshin_Impact_logo.svg",
+img:"https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Genshin_Impact_logo.svg/512px-Genshin_Impact_logo.svg.png",
 hot:true,
 prices:[
 ["60創世結晶","$30"],
@@ -383,15 +377,11 @@ priceArea.innerHTML+=priceHTML
 
 })
 
-/* ---------- 停留秒數 ---------- */
-
 let seconds=0
 setInterval(()=>{
 seconds++
 document.getElementById("stayTime").innerText="你已停留："+seconds+" 秒"
 },1000)
-
-/* ---------- 搜尋 ---------- */
 
 const search=document.getElementById("search")
 const noResult=document.getElementById("noResult")
@@ -420,8 +410,6 @@ noResult.style.display=found?"none":"block"
 
 })
 
-/* ---------- 卡片點擊 ---------- */
-
 document.addEventListener("click",function(e){
 
 if(e.target.closest(".card")){
@@ -446,8 +434,6 @@ prices[index].scrollIntoView({behavior:"smooth"})
 
 })
 
-/* ---------- LINE 訂單 ---------- */
-
 document.addEventListener("click",function(e){
 
 if(e.target.closest(".price")){
@@ -468,7 +454,7 @@ window.open(url)
 
 })
 
-/* ---------- 星空 + 煙火 + 流星 ---------- */
+/* 星空煙火 */
 
 const canvas=document.getElementById("bg")
 const ctx=canvas.getContext("2d")
@@ -508,10 +494,6 @@ setInterval(()=>{
 createFirework(Math.random()*canvas.width,Math.random()*canvas.height/2)
 },1800)
 
-canvas.addEventListener("click",e=>{
-createFirework(e.clientX,e.clientY)
-})
-
 function createMeteor(){
 meteors.push({
 x:Math.random()*canvas.width,
@@ -528,8 +510,6 @@ function animate(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-/* 星星 */
-
 stars.forEach(s=>{
 
 s.alpha+=(Math.random()-0.5)*0.05
@@ -542,8 +522,6 @@ ctx.fillStyle=`rgba(255,255,255,${s.alpha})`
 ctx.fill()
 
 })
-
-/* 煙火 */
 
 fireworks.forEach((p,i)=>{
 
@@ -561,8 +539,6 @@ fireworks.splice(i,1)
 }
 
 })
-
-/* 流星 */
 
 meteors.forEach((m,i)=>{
 
