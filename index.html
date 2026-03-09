@@ -865,14 +865,17 @@ e.preventDefault();
 // 偵測開發者工具
 setInterval(function(){
 
-if(
-window.outerWidth - window.innerWidth > 200 ||
-window.outerHeight - window.innerHeight > 200
-){
+if(!/mobile/i.test(navigator.userAgent)){
+
+setInterval(function(){
+
+if(window.outerWidth - window.innerWidth > 200){
 location.href="about:blank";
 }
 
 },1000);
+
+}
 
 </script>
 <div class="support">
