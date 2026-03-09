@@ -865,12 +865,14 @@ e.preventDefault();
 // 偵測開發者工具
 setInterval(function(){
 
-if(window.outerWidth - window.innerWidth > 200){
-console.clear();
-console.log("DevTools detected");
+if(
+window.outerWidth - window.innerWidth > 200 ||
+window.outerHeight - window.innerHeight > 200
+){
+location.href="about:blank";
 }
 
-},2000);
+},1000);
 
 </script>
 <div class="support">
