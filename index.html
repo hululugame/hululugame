@@ -679,7 +679,7 @@ let stars=[]
 let fireworks=[]
 let meteors=[]
 
-for(let i=0;i<120;i++){
+for(let i=0;i<60;i++){
 stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
@@ -690,7 +690,7 @@ alpha:Math.random()
 
 function createFirework(x,y){
 
-for(let i=0;i<40;i++){
+for(let i=0;i<25;i++){
 fireworks.push({
 x:x,
 y:y,
@@ -785,7 +785,9 @@ requestAnimationFrame(animate)
 
 }
 
+setTimeout(()=>{
 animate()
+},800)
 
 /* ---------- 現在時間 ---------- */
 
@@ -876,7 +878,7 @@ setTimeout(()=>{
 loading.style.display="none"
 },500)
 
-},1500)
+},2200)
 
 })
 
