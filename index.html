@@ -672,8 +672,8 @@ window.open(url)
 const canvas=document.getElementById("bg")
 const ctx=canvas.getContext("2d")
 
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
+canvas.width=window.innerWidth*0.6
+canvas.height=window.innerHeight*0.6
 
 let stars=[]
 let fireworks=[]
@@ -782,7 +782,6 @@ meteors.splice(i,1)
 })
 
 setTimeout(()=>{
-requestAnimationFrame(animate)
 },16
 
 }
