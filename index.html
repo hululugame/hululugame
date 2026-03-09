@@ -821,6 +821,11 @@ document.onselectstart=function(){
 return false;
 };
 
+// 禁止拖曳圖片
+document.addEventListener("dragstart",function(e){
+e.preventDefault();
+});
+
 // 禁止右鍵
 document.addEventListener("contextmenu",function(e){
 e.preventDefault();
