@@ -816,6 +816,11 @@ updateTime()
 
 /* 防偷程式 */
 
+// 禁止選取文字
+document.onselectstart=function(){
+return false;
+};
+
 // 禁止右鍵
 document.addEventListener("contextmenu",function(e){
 e.preventDefault();
@@ -842,17 +847,15 @@ e.preventDefault();
 
 });
 
-// 開開發者工具 → 黑屏
+// 偵測開發者工具
 setInterval(function(){
 
-if(window.outerWidth - window.innerWidth > 160 ||
-   window.outerHeight - window.innerHeight > 160){
-
-document.body.innerHTML="";
-
+if(window.outerWidth - window.innerWidth > 200){
+console.clear();
+console.log("DevTools detected");
 }
 
-},1000);
+},2000);
 
 </script>
 <div class="support">
