@@ -1015,7 +1015,7 @@ let price=item.children[1].innerText
 
 let text=`我要儲值\n遊戲:${game}\n面額:${itemName}\n價格:${price}`
 
-let url="https://line.me/R/oaMessage/@pf0zYhi55P/?"+encodeURIComponent(text)
+let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
 
 window.open(url)
 
@@ -1277,7 +1277,7 @@ pressTimer=setTimeout(()=>{
 
 let text="你好 我想詢問\n\n"+gameName+" 價格"
 
-let url="https://line.me/R/oaMessage/@pf0zYhi55P/?"+encodeURIComponent(text)
+let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
 
 window.open(url)
 
