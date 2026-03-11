@@ -459,6 +459,18 @@ user-select:none;
 pointer-events:none;
 }
 
+/* 複製價目表按鈕 */
+.copyGameBtn{
+margin:10px 0;
+padding:10px 14px;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
 </style>
 
 <meta name="robots" content="index, follow">
@@ -913,6 +925,7 @@ ${g.hot?'<div class="hot">HOT</div>':''}
 
 let priceHTML=`<div class="prices" id="price${i}">
 <h3>${g.name}</h3>`
+<button class="copyGameBtn" data-index="${i}">📋 複製價目表</button>`
 
 g.prices.forEach(p=>{
 priceHTML+=`<div class="price"><span>${p[0]}</span><span>${p[1]}</span></div>`
@@ -983,17 +996,6 @@ prices[index].style.display="block"
 
 prices[index].scrollIntoView({behavior:"smooth"})
 
-let game=games[index]
-
-let text=game.name+"\n"
-
-game.prices.forEach(p=>{
-text+=p[0]+" "+p[1]+"\n"
-})
-
-navigator.clipboard.writeText(text)
-
-alert("已複製 "+game.name+" 價目表")
 
 }
 
@@ -1299,7 +1301,6 @@ behavior:"smooth"
 })
 })
 
-
 document.body.addEventListener("click",function(){
 const music=document.getElementById("bgMusic")
 music.volume=0.2
@@ -1317,6 +1318,25 @@ loading.style.display="none"
 },500)
 
 },800)
+
+document.addEventListener("click",function(e){
+
+if(e.target.classList.contains("copyGameBtn")){
+
+let index=e.target.dataset.index
+let game=games[index]
+
+let text=game.name+"\n"
+
+game.prices.forEach(p=>{
+text+=p[0]+" "+p[1]+"\n"
+})
+
+navigator.clipboard.writeText(text)
+
+alert("已複製 "+game.name+" 價目表")
+
+}
 
 })
 
