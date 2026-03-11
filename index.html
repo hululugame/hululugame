@@ -471,6 +471,20 @@ font-weight:bold;
 cursor:pointer;
 }
 
+/* 提示動畫 */
+.tip{
+margin-top:12px;
+color:#94a3b8;
+font-size:14px;
+animation:tipGlow 2s infinite;
+}
+
+@keyframes tipGlow{
+0%{opacity:0.5;}
+50%{opacity:1;}
+100%{opacity:0.5;}
+}
+
 </style>
 
 <meta name="robots" content="index, follow">
@@ -518,7 +532,7 @@ cursor:pointer;
 
 <input id="search" placeholder="搜尋遊戲">
 
-<div style="margin-top:10px;color:#94a3b8;font-size:14px;">
+<div class="tip">
 💡 點擊遊戲查看價格 ｜ 長按遊戲詢問客服價格 💡
 </div>
 </header>
