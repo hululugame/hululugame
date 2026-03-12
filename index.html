@@ -490,6 +490,37 @@ animation:tipGlow 2s infinite;
 100%{opacity:0.5;}
 }
 
+/* 小寵物 */
+
+.pet{
+position:absolute;
+width:55px;
+z-index:10;
+pointer-events:none;
+}
+
+.pet-dog{
+top:180px;
+left:-60px;
+animation:dogWalk 20s linear infinite;
+}
+
+.pet-cat{
+top:180px;
+right:-60px;
+animation:catWalk 22s linear infinite;
+}
+
+@keyframes dogWalk{
+0%{left:-60px;}
+100%{left:110%;}
+}
+
+@keyframes catWalk{
+0%{right:-60px;}
+100%{right:110%;}
+}
+
 </style>
 
 <meta name="robots" content="index, follow">
@@ -537,6 +568,9 @@ animation:tipGlow 2s infinite;
 
 <input id="search" placeholder="搜尋遊戲">
 
+<img src="https://i.imgur.com/YK9J4Fh.gif" class="pet pet-dog">
+<img src="https://i.imgur.com/Z8qvF2L.gif" class="pet pet-cat">
+  
 <div class="tip">
 💡 使用說明 💡<br>
 點擊遊戲查看價格<br>
