@@ -492,39 +492,60 @@ animation:tipGlow 2s infinite;
 
 /* 小寵物 */
 
+/* 寵物 */
+
 .pet{
 position:fixed;
-width:45px;
+width:42px;
+z-index:3;
+cursor:pointer;
+transition:transform 0.3s;
+}
+
+/* 狗在左邊 */
+
+#dogPet{
+left:6px;
+top:200px;
+animation:dogWalk 6s ease-in-out infinite;
+}
+
+/* 貓在右邊 */
+
+#catPet{
+right:6px;
+top:240px;
+animation:catWalk 7s ease-in-out infinite;
+}
+
+/* 左側上下走 */
+
+@keyframes dogWalk{
+0%{transform:translateY(0)}
+50%{transform:translateY(20px)}
+100%{transform:translateY(0)}
+}
+
+/* 右側上下走 */
+
+@keyframes catWalk{
+0%{transform:translateY(0)}
+50%{transform:translateY(-20px)}
+100%{transform:translateY(0)}
+}
+
+/* 對話泡泡 */
+
+#petBubble{
+position:fixed;
+background:white;
+color:black;
+padding:6px 10px;
+border-radius:8px;
+font-size:13px;
+display:none;
 z-index:5;
-pointer-events:none;
-}
-
-/* 狗左邊 */
-
-.pet-dog{
-top:220px;
-left:5px;
-animation:dogMove 6s ease-in-out infinite;
-}
-
-/* 貓右邊 */
-
-.pet-cat{
-top:260px;
-right:5px;
-animation:catMove 7s ease-in-out infinite;
-}
-
-@keyframes dogMove{
-0%{transform:translateY(0);}
-50%{transform:translateY(20px);}
-100%{transform:translateY(0);}
-}
-
-@keyframes catMove{
-0%{transform:translateY(0);}
-50%{transform:translateY(-20px);}
-100%{transform:translateY(0);}
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
 }
 
 </style>
@@ -576,7 +597,9 @@ animation:catMove 7s ease-in-out infinite;
 
 <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="pet pet-dog">
 <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="pet pet-cat">
-  
+
+<div id="petBubble"></div>
+
 <div class="tip">
 💡 使用說明 💡<br>
 點擊遊戲查看價格<br>
@@ -1389,6 +1412,47 @@ location.href="about:blank";
 }
 
 </script>
+
+const dog = document.getElementById("dogPet")
+const cat = document.getElementById("catPet")
+const bubble = document.getElementById("petBubble")
+
+dog.onclick = ()=>{
+showPetText("汪！需要代儲嗎？", dog)
+}
+
+cat.onclick = ()=>{
+showPetText("喵～點擊遊戲查看價格", cat)
+}
+
+function showPetText(text, pet){
+
+bubble.innerText = text
+
+const rect = pet.getBoundingClientRect()
+
+bubble.style.left = rect.left + "px"
+bubble.style.top = (rect.top - 40) + "px"
+
+bubble.style.display="block"
+
+setTimeout(()=>{
+bubble.style.display="none"
+},2000)
+
+}
+
+/* 狗偶爾跳 */
+
+setInterval(()=>{
+dog.style.transform="translateY(-20px)"
+
+setTimeout(()=>{
+dog.style.transform="translateY(0)"
+},300)
+
+},8000)
+
 <div class="support">
   <div class="support-btn" onclick="toggleSupport()">💬</div>
 
