@@ -595,8 +595,8 @@ box-shadow:0 4px 10px rgba(0,0,0,0.3);
 
 <input id="search" placeholder="搜尋遊戲">
 
-<img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="pet pet-dog">
-<img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="pet pet-cat">
+<img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" id="dogPet" class="pet">
+<img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" id="catPet" class="pet">
 
 <div id="petBubble"></div>
 
@@ -1486,22 +1486,13 @@ const rect = pet.getBoundingClientRect()
 bubble.style.left = rect.left + "px"
 bubble.style.top = (rect.top - 40) + "px"
 
-bubble.style.display="block"
+bubble.style.display = "block"
 
 setTimeout(()=>{
-bubble.style.display="none"
+bubble.style.display = "none"
 },2000)
 
 }
-
-setInterval(()=>{
-dog.style.transform="translateY(-20px)"
-
-setTimeout(()=>{
-dog.style.transform="translateY(0)"
-},300)
-
-},8000)
 
 /* 回到頂部按鈕 */
 
