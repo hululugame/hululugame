@@ -1465,27 +1465,44 @@ dog.style.transform="translateY(0)"
 <script>
 function toggleSupport(){
 
-const menu = document.getElementById("supportMenu");
-const bubble = document.getElementById("bubble");
+const dog = document.getElementById("dogPet")
+const cat = document.getElementById("catPet")
+const bubble = document.getElementById("petBubble")
 
-if(menu.style.display === "flex"){
-menu.style.display = "none";
-bubble.style.bottom = "90px";
-}else{
-menu.style.display = "flex";
-bubble.style.bottom = "200px";
-}
+dog.onclick = ()=>{
+showPetText("汪！需要代儲嗎？", dog)
 }
 
-setTimeout(()=>{
-const bubble=document.getElementById("bubble");
-if(bubble){
-bubble.style.opacity="0";
-setTimeout(()=>{
-bubble.style.display="none";
-},500);
+cat.onclick = ()=>{
+showPetText("喵～點擊遊戲查看價格", cat)
 }
-},5000);
+
+function showPetText(text, pet){
+
+bubble.innerText = text
+
+const rect = pet.getBoundingClientRect()
+
+bubble.style.left = rect.left + "px"
+bubble.style.top = (rect.top - 40) + "px"
+
+bubble.style.display="block"
+
+setTimeout(()=>{
+bubble.style.display="none"
+},2000)
+
+}
+
+setInterval(()=>{
+dog.style.transform="translateY(-20px)"
+
+setTimeout(()=>{
+dog.style.transform="translateY(0)"
+},300)
+
+},8000)
+
 /* 回到頂部按鈕 */
 
 const backTop=document.getElementById("backTop")
