@@ -490,6 +490,49 @@ animation:tipGlow 2s infinite;
 100%{opacity:0.5;}
 }
 
+/* 寵物 */
+
+.pet{
+position:fixed;
+width:42px;
+pointer-events:auto;
+opacity:0.9;
+z-index:2;
+}
+
+#petDog{
+left:6px;
+bottom:120px;
+animation:dogMove 6s ease-in-out infinite;
+}
+
+#petCat{
+right:6px;
+bottom:160px;
+animation:catMove 7s ease-in-out infinite;
+}
+
+@keyframes dogMove{
+0%{transform:translateY(0)}
+50%{transform:translateY(-18px)}
+100%{transform:translateY(0)}
+}
+
+@keyframes catMove{
+0%{transform:translateY(0)}
+50%{transform:translateY(18px)}
+100%{transform:translateY(0)}
+}
+
+@media (max-width:500px){
+
+.pet{
+width:32px;
+opacity:0.7;
+}
+
+}
+
 </style>
 
 <meta name="robots" content="index, follow">
@@ -1580,11 +1623,31 @@ alert("已複製 "+game.name+" 價目表")
 
 }
 
+/* 寵物互動 */
+
+const dog = document.getElementById("petDog");
+const cat = document.getElementById("petCat");
+
+if(dog){
+dog.onclick=()=>{
+alert("汪！需要代儲嗎 🐶");
+}
+}
+
+if(cat){
+cat.onclick=()=>{
+alert("喵～點擊遊戲查看價格 🐱");
+}
+}
+
 })
 
 </script>
 <audio id="bgMusic" src="videoplayback.mp4" loop></audio>
 <img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo" alt="呼嚕嚕手遊代儲 原神代儲 崩壞星穹鐵道代儲 傳說對決代儲">
-    
+
+<img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" id="petDog" class="pet">
+<img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" id="petCat" class="pet">
+  
 </body>
 </html>
