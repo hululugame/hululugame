@@ -2465,7 +2465,7 @@ document.querySelectorAll(".prices").forEach(p=>p.style.display="none")
 
 document.querySelectorAll(".card").forEach(card=>{
 
-let name=card.dataset.name.toLowerCase()if(name.includes(text) || name.replace(/\s/g,"").includes(text))
+if(name.includes(text) || name.replace(/\s/g,"").includes(text))
 card.style.display = ""
 found=true
 }else{
