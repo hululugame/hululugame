@@ -2773,33 +2773,27 @@ backTop.style.opacity="0"
 
 let pressTimer;
 
-document.querySelectorAll(".card").forEach(card=>{
+document.addEventListener("touchstart", function(e) {
 
-card.addEventListener("touchstart",function(){
+  let card = e.target.closest(".card");
+  if (!card) return;
 
-let gameName=this.dataset.name
+  let gameName = card.dataset.name;
 
-pressTimer=setTimeout(()=>{
+  pressTimer = setTimeout(() => {
 
-let text="你好 我想詢問\n\n"+gameName+" 價格"
+    let text = "你好 我想詢問\n\n" + gameName + " 價格";
+    let url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
 
-let url="https://line.me/R/msg/text/?"+encodeURIComponent(text)
+    window.open(url);
 
-window.open(url)
+  }, 700);
 
-},800)
+});
 
-})
+document.addEventListener("touchend", () => clearTimeout(pressTimer));
+document.addEventListener("touchmove", () => clearTimeout(pressTimer));
 
-card.addEventListener("touchend",function(){
-clearTimeout(pressTimer)
-})
-
-card.addEventListener("touchmove",function(){
-clearTimeout(pressTimer)
-})
-
-})
 backTop.addEventListener("click",()=>{
 window.scrollTo({
 top:0,
