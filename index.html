@@ -2468,7 +2468,7 @@ document.querySelectorAll(".card").forEach(card=>{
 let name=card.dataset.name.toLowerCase()
 
 if(name.includes(text)||text===""){
-card.style.display="block"
+card.style.display = ""
 found=true
 }else{
 card.style.display="none"
