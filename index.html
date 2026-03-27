@@ -3213,6 +3213,16 @@ alert("喵～點擊遊戲查看價格 🐱");
 
 })
 
+function hideLoading() {
+  const loading = document.getElementById("loadingScreen");
+  if (loading) loading.style.display = "none";
+}
+
+window.addEventListener("load", hideLoading);
+
+// 保險（3秒一定關）
+setTimeout(hideLoading, 3000);
+
 </script>
 <audio id="bgMusic" src="videoplayback.mp4" loop></audio>
 <img src="https://i.ibb.co/Jw02kmC3/IMG-5523.png" class="site-logo" alt="呼嚕嚕手遊代儲 原神代儲 崩壞星穹鐵道代儲 傳說對決代儲">
